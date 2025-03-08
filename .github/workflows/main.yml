@@ -40,16 +40,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}  
           password: ${{ secrets.DOCKERHUB_PASS }}  
 
-      - name: Build the Docker image  
+      - name: Build the Docker image 
         run: |  
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/dotnetdev:${{ steps.tag_version.outputs.new_tag }} .  
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/dotnetdev:${{ steps.tag_version.outputs.new_tag }}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/dotnetdev:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/dotnetdev:latest
-          # docker build -f=Dockerfile2 -t ${{ secrets.DOCKERHUB_USERNAME }}/migrateimage:${{ steps.tag_version.outputs.new_tag }} .  
-          # docker push ${{ secrets.DOCKERHUB_USERNAME }}/migrateimage:${{ steps.tag_version.outputs.new_tag }}
-          # docker build -f=Dockerfile2 -t ${{ secrets.DOCKERHUB_USERNAME }}/migrateimage:latest .
-          # docker push ${{ secrets.DOCKERHUB_USERNAME }}/migrateimage:latest
+          docker build -f Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:${{ steps.tag_version.outputs.new_tag }} .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:${{ steps.tag_version.outputs.new_tag }}
+          docker build -f Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:latest
+
+          # docker build -f=Dockerfile2 -t ${{ secrets.DOCKERHUB_USERNAME }}/developimage:${{ steps.tag_version.outputs.new_tag }} .  
+          # docker push ${{ secrets.DOCKERHUB_USERNAME }}/developimage:${{ steps.tag_version.outputs.new_tag }}
+          # docker build -f=Dockerfile2 -t ${{ secrets.DOCKERHUB_USERNAME }}/developimage:latest .
+          # docker push ${{ secrets.DOCKERHUB_USERNAME }}/developimage:latest
 
   build:
     runs-on: ubuntu-latest
@@ -59,17 +60,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup dotnet
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
-    - name: Install dependencies
-      working-directory: AnalysisData
-      run: dotnet restore ./AnalysisData.sln
-    - name: Build
-      working-directory: AnalysisData
-      run: dotnet build ./AnalysisData.sln
-    - name: Test with the dotnet CLI
-      working-directory: AnalysisData
-      run: dotnet test ./AnalysisData.sln
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.6'  
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements/production.txt  
+      - name: Run migrations
+        run: |
+          python manage.py migrate 
+      - name: Test with Django
+        run: |
+          python manage.py test  
+  
