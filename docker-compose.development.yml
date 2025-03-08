@@ -24,15 +24,15 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_DB: unico_dev_db
-      POSTGRES_USER: unico_dev_user
-      POSTGRES_PASSWORD: unico
+      DEV_DB_NAME: unico_dev_db  
+      DEV_DB_USER: unico_dev_user 
+      DEV_DB_PASSWORD: unico 
     volumes:
       - postgres_data_development:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U unico_dev_user" ]
+      test: ["CMD-SHELL", "pg_isready -U unico_dev_user -d unico_dev_db"]
       interval: 10s
       retries: 5
       start_period: 30s
