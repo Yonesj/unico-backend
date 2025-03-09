@@ -119,6 +119,9 @@ jobs:
       #     PROD_DB_PORT: 5432
       #   run: |
       #     python manage.py dbshell
+      - name: Make migrations if needed
+        run: |
+          python manage.py makemigrations --check --noinput || python manage.py makemigrations
           
       - name: Run migrations
         env:
