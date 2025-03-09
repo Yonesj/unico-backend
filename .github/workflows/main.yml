@@ -95,8 +95,10 @@ jobs:
       - name: Get PostgreSQL container IP
         id: postgres_ip
         run: |
-          echo "POSTGRES_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)" >> $GITHUB_ENV
-      
+          POSTGRES_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)
+          echo "POSTGRES_IP=${POSTGRES_IP}" >> $GITHUB_ENV
+          echo "PostgreSQL IP: ${POSTGRES_IP}"
+          
       - name: Wait for PostgreSQL to be ready
         run: |
           dockerize -wait tcp://$POSTGRES_IP:5432 -timeout 60s
