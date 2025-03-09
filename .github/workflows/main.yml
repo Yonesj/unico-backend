@@ -103,7 +103,7 @@ jobs:
           PROD_DB_NAME: test_db
           PROD_DB_USER: test_user
           PROD_DB_PASSWORD: test_password
-          PROD_DB_HOST: postgres
+          PROD_DB_HOST: localhost
           PROD_DB_PORT: 5432
         run: python manage.py migrate
           
