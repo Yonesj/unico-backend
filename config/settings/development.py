@@ -18,3 +18,20 @@ DATABASES = {
         'PORT': os.getenv('DEV_DB_PORT', '5432'),
     }
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8001",
+    "http://127.0.0.1:8001",
+]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "yonjam95@gmail.com"
+EMAIL_HOST_PASSWORD = "yones13820528"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
