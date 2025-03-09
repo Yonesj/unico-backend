@@ -14,6 +14,13 @@ jobs:
       contents: write
     outputs:  
       dotnetdev_version: ${{ steps.tag_version.outputs.new_tag }}  
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DB_NAME: unico_dev_db
+      DB_USER: unico_dev_user
+      DB_PASSWORD: your_password_here
+      DB_HOST: localhost
+      DB_PORT: 5432
       
     steps:
       - uses: actions/checkout@v3
@@ -66,7 +73,6 @@ jobs:
           POSTGRES_USER: unico_dev_user
           POSTGRES_PASSWORD: unico_dev_db
           POSTGRES_DB: unico
-          PROD_DB_HOST: db
         ports:
           - 5432:5432
         options: >-
@@ -109,7 +115,7 @@ jobs:
           PROD_DB_NAME: unico
           PROD_DB_USER: unico_dev_user
           PROD_DB_PASSWORD: unico_dev_db
-          PROD_DB_HOST: db
+          PROD_DB_HOST: localhost
           PROD_DB_PORT: 5432
         run: |
           python manage.py dbshell
@@ -122,7 +128,7 @@ jobs:
           PROD_DB_NAME: unico
           PROD_DB_USER: unico_dev_user
           PROD_DB_PASSWORD: unico_dev_db
-          PROD_DB_HOST: db
+          PROD_DB_HOST: localhost
           PROD_DB_PORT: 5432
         run: python manage.py migrate
         
