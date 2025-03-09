@@ -97,7 +97,16 @@ jobs:
       - name: Check PostgreSQL is running
         run: |
           pg_isready -U test_user -h localhost -p 5432
-      
+
+      - name: Check PostgreSQL logs
+        run: |
+          docker logs postgres
+          
+      - name: Ping PostgreSQL
+        run: |
+          ping -c 4 postgres
+
+
       - name: Run migrations
         env:
           PROD_DB_NAME: test_db
