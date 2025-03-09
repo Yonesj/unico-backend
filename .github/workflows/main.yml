@@ -86,8 +86,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade --force-reinstall --no-cache-dir -r requirements/production.txt
-
-
+          
+      - name: Install wait-for-it
+        run: |
+          curl -sSL https://github.com/vishnubob/wait-for-it/releases/download/v2.3.0/wait-for-it-linux-amd64 -o /usr/local/bin/wait-for-it
+          chmod +x /usr/local/bin/wait-for-it
+          
       - name: Wait for PostgreSQL to be ready
         run: |
           dockerize -wait tcp://localhost:5432 -timeout 60s
