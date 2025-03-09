@@ -93,17 +93,17 @@ jobs:
           
       - name: Wait for PostgreSQL to be ready
         run: |
-          dockerize -wait tcp://localhost:5432 -timeout 60s
-
+          dockerize -wait tcp://db:5432 -timeout 60s  
+        
       - name: Run migrations
         env:
           PROD_DB_NAME: test_db
           PROD_DB_USER: test_user
           PROD_DB_PASSWORD: test_password
-          PROD_DB_HOST: localhost  
+          PROD_DB_HOST: db  
           PROD_DB_PORT: 5432
         run: python manage.py migrate
-
+          
       - name: Run tests
         env:
           PROD_DB_NAME: test_db
