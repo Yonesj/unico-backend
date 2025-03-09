@@ -90,23 +90,26 @@ jobs:
       - name: Install dockerize
         run: |
           curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar xz -C /usr/local/bin
+
+                
+      - name: Get PostgreSQL container IP
+        id: postgres_ip
+        run: |
+          echo "POSTGRES_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres)" >> $GITHUB_ENV
+      
       - name: Wait for PostgreSQL to be ready
         run: |
-          dockerize -wait tcp://postgres:5432 -timeout 60s
-  
-      - name: Check PostgreSQL is running
-        run: |
-          pg_isready -U test_user -h postgres -p 5432
-
+          dockerize -wait tcp://$POSTGRES_IP:5432 -timeout 60s
+      
       - name: Run migrations
         env:
           PROD_DB_NAME: test_db
           PROD_DB_USER: test_user
           PROD_DB_PASSWORD: test_password
-          PROD_DB_HOST: postgres
+          PROD_DB_HOST: ${{ env.POSTGRES_IP }} 
           PROD_DB_PORT: 5432
         run: python manage.py migrate
-          
+        
       - name: Run tests
         env:
           PROD_DB_NAME: test_db
