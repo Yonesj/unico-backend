@@ -24,9 +24,12 @@ services:
     image: postgres:15
     restart: always
     environment:
-      DEV_DB_NAME: unico_dev_db  
-      DEV_DB_USER: unico_dev_user 
-      DEV_DB_PASSWORD: unico 
+#      DEV_DB_NAME: unico_dev_db
+#      DEV_DB_USER: unico_dev_user
+#      DEV_DB_PASSWORD: unico
+      POSTGRES_DB: unico_dev_db
+      POSTGRES_USER: unico_dev_user
+      POSTGRES_PASSWORD: unico
     volumes:
       - postgres_data_development:/var/lib/postgresql/data
     ports:
