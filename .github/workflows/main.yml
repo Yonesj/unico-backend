@@ -100,11 +100,11 @@ jobs:
 
       - name: Check PostgreSQL logs
         run: |
-          docker logs postgres
+          docker logs localhost
           
       - name: Ping PostgreSQL
         run: |
-          ping -c 4 postgres
+          ping -c 4 localhost
 
 
       - name: Run migrations
