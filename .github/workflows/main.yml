@@ -120,9 +120,6 @@ jobs:
       #   run: |
       #     python manage.py dbshell
           
-      - name: Check PostgreSQL logs
-        run: docker logs postgres
-          
       - name: Run migrations
         env:
           DJANGO_SETTINGS_MODULE: config.settings.production
