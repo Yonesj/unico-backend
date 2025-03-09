@@ -70,9 +70,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: unico_dev_user
-          POSTGRES_PASSWORD: unico_dev_db
-          POSTGRES_DB: unico
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_db
+          POSTGRES_DB: test_password
         ports:
           - 5432:5432
         options: >-
@@ -110,24 +110,25 @@ jobs:
           apt-get update && apt-get install -y telnet
           telnet localhost 5432
           
-      - name: Debug Django database connection
-        env:
-          PROD_DB_NAME: unico
-          PROD_DB_USER: unico_dev_user
-          PROD_DB_PASSWORD: unico_dev_db
-          PROD_DB_HOST: localhost
-          PROD_DB_PORT: 5432
-        run: |
-          python manage.py dbshell
+      # - name: Debug Django database connection
+      #   env:
+      #     PROD_DB_NAME: unico
+      #     PROD_DB_USER: unico_dev_user
+      #     PROD_DB_PASSWORD: unico_dev_db
+      #     PROD_DB_HOST: localhost
+      #     PROD_DB_PORT: 5432
+      #   run: |
+      #     python manage.py dbshell
           
       - name: Check PostgreSQL logs
         run: docker logs postgres
           
       - name: Run migrations
         env:
-          PROD_DB_NAME: unico
-          PROD_DB_USER: unico_dev_user
-          PROD_DB_PASSWORD: unico_dev_db
+          DJANGO_SETTINGS_MODULE: config.settings.production
+          PROD_DB_NAME: test_db
+          PROD_DB_USER: test_user
+          PROD_DB_PASSWORD: test_password
           PROD_DB_HOST: localhost
           PROD_DB_PORT: 5432
         run: python manage.py migrate
