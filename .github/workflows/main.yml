@@ -87,10 +87,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade --force-reinstall --no-cache-dir -r requirements/production.txt
           
-      - name: Install wait-for-it
+      - name: Install dockerize
         run: |
-          curl -sSL https://github.com/vishnubob/wait-for-it/releases/download/v2.3.0/wait-for-it-linux-amd64 -o /usr/local/bin/wait-for-it
-          chmod +x /usr/local/bin/wait-for-it
+          curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar xz -C /usr/local/bin
           
       - name: Wait for PostgreSQL to be ready
         run: |
