@@ -92,27 +92,18 @@ jobs:
           curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar xz -C /usr/local/bin
       - name: Wait for PostgreSQL to be ready
         run: |
-          dockerize -wait tcp://localhost:5432 -timeout 60s
+          dockerize -wait tcp://postgres:5432 -timeout 60s
   
       - name: Check PostgreSQL is running
         run: |
-          pg_isready -U test_user -h localhost -p 5432
-
-      - name: Check PostgreSQL logs
-        run: |
-          docker logs localhost
-          
-      - name: Ping PostgreSQL
-        run: |
-          ping -c 4 localhost
-
+          pg_isready -U test_user -h postgres -p 5432
 
       - name: Run migrations
         env:
           PROD_DB_NAME: test_db
           PROD_DB_USER: test_user
           PROD_DB_PASSWORD: test_password
-          PROD_DB_HOST: localhost
+          PROD_DB_HOST: postgres
           PROD_DB_PORT: 5432
         run: python manage.py migrate
           
