@@ -106,10 +106,10 @@ jobs:
           
       - name: Debug Django database connection
         env:
-          PROD_DB_NAME: test_db
-          PROD_DB_USER: test_user
-          PROD_DB_PASSWORD: test_password
-          PROD_DB_HOST: 127.0.0.1
+          PROD_DB_NAME: unico
+          PROD_DB_USER: unico_dev_user
+          PROD_DB_PASSWORD: unico_dev_db
+          PROD_DB_HOST: db
           PROD_DB_PORT: 5432
         run: |
           python manage.py dbshell
