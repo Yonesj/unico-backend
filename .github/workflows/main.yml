@@ -49,9 +49,9 @@ jobs:
 
       - name: Build the Docker image 
         run: |  
-          docker build -f Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:${{ steps.tag_version.outputs.new_tag }} .
+          docker build -f ./Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:${{ steps.tag_version.outputs.new_tag }} .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:${{ steps.tag_version.outputs.new_tag }}
-          docker build -f Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:latest .
+          docker build -f ./Dockerfile.pro -t ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/unico-back:latest
 
           # docker build -f=Dockerfile2 -t ${{ secrets.DOCKERHUB_USERNAME }}/developimage:${{ steps.tag_version.outputs.new_tag }} .  
