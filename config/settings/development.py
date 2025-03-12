@@ -8,6 +8,10 @@ SECRET_KEY = 'django-insecure-1wpof=ecqs@udx#m=fq+xqd7shb6+58c_!!x#v5h-n2j9#apcj
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+INSTALLED_APPS += [
+    'drf_spectacular',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -37,3 +41,18 @@ EMAIL_HOST_PASSWORD = "dflt jetp fcua mnyg"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 PASSWORD_RESET_URL = "http://localhost:3000/reset-password"
+
+REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Unico API docs",
+    "DESCRIPTION": "API documentation for unico project",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True,
+    },
+    "AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}
