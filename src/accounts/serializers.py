@@ -7,20 +7,55 @@ from djoser.serializers import UserCreateSerializer as Base
 
 from .models import User
 
+
 class UserCreateSerializer(Base):
+    """
+        This serializer extends Djoser's `UserCreateSerializer` to define
+        the required fields for creating a new user.
+
+        **Fields**:
+            - `id` (int): Auto-generated user ID.
+            - `username` (str): Unique username for the user.
+            - `email` (str): User's email address, used as the login identifier.
+            - `password` (str): User's password (write-only).
+    """
+
     class Meta(Base.Meta):
         fields = ['id', 'username', 'password', 'email']
 
 
 class ActivationCodeSerializer(serializers.Serializer):
+    """
+       This serializer is used to validate the activation code provided by the user during the account activation process.
+
+        **Fields**:
+        - **activation_code** (str): A string field that accepts a maximum of 8 characters.
+          This code is expected to be sent to the user and then provided back for validation.
+    """
     activation_code = serializers.CharField(max_length=8)
 
 
 class PasswordResetRequestSerializer(serializers.Serializer):
+    """
+        This serializer is used to validate the email address provided
+        when a user requests a password reset.
+
+        **Fields**:
+            - `email` (str): The user's email address where the password reset link will be sent.
+    """
     email = serializers.EmailField()
 
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
+    """
+        This serializer is used to validate the data required for confirming
+        a password reset, including the reset token and the new password.
+
+        **Fields**:
+            - `token` (str): A token generated for securely identifying the password reset request.
+            - `password` (str): The new password to be set for the user (write-only).
+            - `retyped_password` (str): Confirmation of the new password to ensure correctness (write-only).
+    """
     token = serializers.CharField()
     password = serializers.CharField(write_only=True)
     retyped_password = serializers.CharField(write_only=True)
