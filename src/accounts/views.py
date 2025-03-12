@@ -95,17 +95,14 @@ class PasswordResetRequestView(GenericAPIView):
 
 @password_reset_confirm_schema
 class PasswordResetConfirmView(GenericAPIView):
+    """
+        Handles confirmation of password reset by verifying UID, token, and new password.
+    """
     serializer_class = [PasswordResetConfirmSerializer]
     throttle_classes = [PasswordResetThrottle]
 
     def post(self, request):
-        uid = request.data.get('uid')
-
-        if not uid:
-            return Response({'detail': 'Missing UID.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer = PasswordResetConfirmSerializer(data=request.data, context={'uid_b64': uid})
+        serializer = PasswordResetConfirmSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response({'detail': 'Password has been reset successfully.'}, status=status.HTTP_200_OK)
