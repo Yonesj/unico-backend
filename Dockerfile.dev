@@ -2,10 +2,24 @@ FROM python:3.12
 
 WORKDIR /usr/src/app/
 
+# Copy and install dependencies
 COPY requirements/ requirements/
 RUN pip install --no-cache-dir -r requirements/development.txt
 
+# Copy application files
 COPY . .
 
+# Copy the entrypoint script and ensure it's executable
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Set Django settings module environment variable
+ENV DJANGO_SETTINGS_MODULE=config.settings.development
+
 EXPOSE 8000
+
+# Use entrypoint.sh instead of CMD
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Default command (optional, but allows overriding in docker-compose)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

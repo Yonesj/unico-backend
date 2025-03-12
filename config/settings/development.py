@@ -24,14 +24,16 @@ INTERNAL_IPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8001",
-    "http://127.0.0.1:8001",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "yonjam95@gmail.com"
-EMAIL_HOST_PASSWORD = "yones13820528"
+EMAIL_HOST_USER = "unico.test2@gmail.com"
+EMAIL_HOST_PASSWORD = "dflt jetp fcua mnyg"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+PASSWORD_RESET_URL = "http://localhost:3000/reset-password"
