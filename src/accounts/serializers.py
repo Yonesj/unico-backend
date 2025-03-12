@@ -95,3 +95,14 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         password = self.validated_data['password']
         user.set_password(password)
         user.save()
+
+
+class MessageSerializer(serializers.Serializer):
+    """
+        This serializer is used for generic message responses in API endpoints,
+        such as success messages or error notifications.
+
+        **Fields**:
+            - `detail` (str): A message describing the result of the API request.
+    """
+    detail = serializers.CharField()
