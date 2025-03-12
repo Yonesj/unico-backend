@@ -8,7 +8,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
@@ -16,12 +16,15 @@ from rest_framework.generics import get_object_or_404
 from .models import ActivationCode, User
 from .serializers import ActivationCodeSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
 from .throttles import PasswordResetThrottle
+from .schema import activation_code_view_schema, password_reset_confirm_schema, password_reset_request_schema
 
 
-class ActivationCodeView(APIView):
+@activation_code_view_schema
+class ActivationCodeView(GenericAPIView):
     """
-    Endpoint to verify and activate a user account using only activation code.
+        Activate a user account via an activation code.
     """
+    serializer_class = ActivationCodeSerializer
 
     def post(self, request):
         serializer = ActivationCodeSerializer(data=request.data)
@@ -45,7 +48,13 @@ class ActivationCodeView(APIView):
         return Response({'detail': 'User activated successfully.'}, status=status.HTTP_200_OK)
 
 
-class PasswordResetRequestView(APIView):
+@password_reset_request_schema
+class PasswordResetRequestView(GenericAPIView):
+    """
+        This view handles password reset requests by accepting a user's email address
+        and sending a password reset link if the email is associated with an existing account.
+    """
+    serializer_class = [PasswordResetRequestSerializer]
     template_name = "emails/reset_password_email.html"
 
     def post(self, request):
@@ -84,7 +93,9 @@ class PasswordResetRequestView(APIView):
         return Response({"detail": "If this email exists, a reset link has been sent."}, status=status.HTTP_200_OK)
 
 
-class PasswordResetConfirmView(APIView):
+@password_reset_confirm_schema
+class PasswordResetConfirmView(GenericAPIView):
+    serializer_class = [PasswordResetConfirmSerializer]
     throttle_classes = [PasswordResetThrottle]
 
     def post(self, request):
