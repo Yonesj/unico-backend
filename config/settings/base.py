@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -31,7 +32,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'src', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,10 +95,17 @@ DJOSER = {
     "USER_ID_FIELD": "email",
     "LOGIN_FIELD": "email",
     "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "activate/",  # Added to satisfy Djoser settings
     "SERIALIZERS": {
         'user_create': 'src.accounts.serializers.UserCreateSerializer',
+        'password_reset': None,
+        'password_reset_confirm': None,
+        'set_password': None,
+        'username_reset': None,
+        "username_reset_confirm": None,
+        "set_username": None,
     },
     "EMAIL": {
-        "activation": "templates.email.user_activation_email",
+        "activation": "src.accounts.emails.CustomActivationEmail"
     },
 }
