@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from djoser.views import UserViewSet
 from .views import ActivationCodeView, PasswordResetConfirmView, PasswordResetRequestView
 
 
@@ -6,4 +7,21 @@ urlpatterns = [
     path('activate-user/', ActivationCodeView.as_view()),
     path('password-reset/', PasswordResetRequestView.as_view(), name='password-reset-request'),
     path('password-reset/confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
+
+    path('users/', UserViewSet.as_view(
+        {
+            'post': 'create'
+        }
+    ), name='user-create'),
+
+    path('users/me/', UserViewSet.as_view(
+        {
+            'get': 'me',
+            'put': 'me',
+            'patch': 'me',
+            'delete': 'me'
+        }
+    ), name='user-me'),
+
+    path('', include('djoser.urls.jwt')),
 ]
