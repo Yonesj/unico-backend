@@ -52,10 +52,12 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         a password reset, including the reset token and the new password.
 
         **Fields**:
+            - uid (str): Encoded user ID from the password reset link.
             - `token` (str): A token generated for securely identifying the password reset request.
             - `password` (str): The new password to be set for the user (write-only).
             - `retyped_password` (str): Confirmation of the new password to ensure correctness (write-only).
     """
+    uid = serializers.CharField()
     token = serializers.CharField()
     password = serializers.CharField(write_only=True)
     retyped_password = serializers.CharField(write_only=True)
@@ -68,19 +70,19 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
             raise serializers.ValidationError({"password": e.messages})
 
     def validate(self, attrs):
+        uid_b64 = attrs.get('uid')
         token = attrs.get('token')
         password = attrs.get('password')
         retyped_password = attrs.get('retyped_password')
 
         if password != retyped_password:
-            raise serializers.ValidationError("passwords must match")
+            raise serializers.ValidationError({"retyped_password": "Passwords do not match."})
 
         try:
-            uid_b64 = self.context.get('uid_b64')
             uid = urlsafe_base64_decode(uid_b64).decode()
             user = User.objects.get(pk=uid)
         except (User.DoesNotExist, ValueError, TypeError):
-            raise serializers.ValidationError({"token": "Invalid user."})
+            raise serializers.ValidationError({"uid": "Invalid or malformed UID."})
 
         token_generator = PasswordResetTokenGenerator()
 
