@@ -14,6 +14,10 @@ urlpatterns = [
         }
     ), name='user-create'),
 
+    path('users/resend_activation/', UserViewSet.as_view(
+        {'post': 'resend_activation'}
+    ), name='resend-activation'),
+
     path('users/me/', UserViewSet.as_view(
         {
             'get': 'me',

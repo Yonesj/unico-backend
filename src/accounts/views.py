@@ -15,7 +15,7 @@ from rest_framework.generics import get_object_or_404
 
 from .models import ActivationCode, User
 from .serializers import ActivationCodeSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
-from .throttles import PasswordResetThrottle
+from .throttles import ActivationCodeThrottle, PasswordResetRequestThrottle, PasswordResetConfirmThrottle
 from .schema import activation_code_view_schema, password_reset_confirm_schema, password_reset_request_schema
 
 
@@ -25,6 +25,7 @@ class ActivationCodeView(GenericAPIView):
         Activate a user account via an activation code.
     """
     serializer_class = ActivationCodeSerializer
+    throttle_classes = [ActivationCodeThrottle]
 
     def post(self, request):
         serializer = ActivationCodeSerializer(data=request.data)
@@ -55,6 +56,7 @@ class PasswordResetRequestView(GenericAPIView):
         and sending a password reset link if the email is associated with an existing account.
     """
     serializer_class = [PasswordResetRequestSerializer]
+    throttle_classes = [PasswordResetRequestThrottle]
     template_name = "emails/reset_password_email.html"
 
     def post(self, request):
@@ -99,7 +101,7 @@ class PasswordResetConfirmView(GenericAPIView):
         Handles confirmation of password reset by verifying UID, token, and new password.
     """
     serializer_class = [PasswordResetConfirmSerializer]
-    throttle_classes = [PasswordResetThrottle]
+    throttle_classes = [PasswordResetConfirmThrottle]
 
     def post(self, request):
         serializer = PasswordResetConfirmSerializer(data=request.data)
