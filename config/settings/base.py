@@ -100,7 +100,6 @@ DJOSER = {
     "ACTIVATION_URL": "activate/",  # Added to satisfy Djoser settings
     "SERIALIZERS": {
         'user_create': 'src.accounts.serializers.UserCreateSerializer',
-        'password_reset': None,
         'password_reset_confirm': None,
         'set_password': None,
         'username_reset': None,
