@@ -2,10 +2,12 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
 class ActivationCodeThrottle(AnonRateThrottle):
-    rate = '10/day'
+    scope = 'account_activation'
+
 
 class PasswordResetRequestThrottle(AnonRateThrottle):
-    rate = "3/hour"
+    scope = 'password_reset'
 
-class PasswordResetConfirmThrottle(UserRateThrottle):
-    rate = '3/hour'
+
+class PasswordResetConfirmThrottle(AnonRateThrottle):
+    scope = 'password_reset'
