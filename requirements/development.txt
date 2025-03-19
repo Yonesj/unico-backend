@@ -11,5 +11,13 @@ referencing==0.36.2
 rpds-py==0.23.1
 uritemplate==4.1.1
 
-# [debug toolbar dependencies]
+# [debug toodependencieslbar ]
 django-debug-toolbar==5.0.1
+
+# [pytest dependencies]
+colorama==0.4.6
+iniconfig==2.0.0
+packaging==24.2
+pluggy==1.5.0
+pytest==8.3.5
+pytest-django==4.10.0
