@@ -4,7 +4,9 @@ from .serializers import *
 
 activation_code_view_schema = extend_schema(
     summary="Activate User Account",
-    description="Activate a user account using an activation code within 10 minutes of registration.",
+    description="Activate a user account using an activation code within 10 minutes of registration. "
+                "This endpoint also enforces a rate limit to prevent abuse; exceeding the allowed number of "
+                "requests results in a 429 (Too Many Requests) response.",
     request=ActivationCodeSerializer,
     responses={
         200: OpenApiResponse(
@@ -20,7 +22,7 @@ activation_code_view_schema = extend_schema(
         ),
         400: OpenApiResponse(
             response=MessageSerializer,
-            description="Invalid activation code or already activated.",
+            description="Activation failed due to an invalid activation code, an expired code, or the user is already activated.",
             examples=[
                 OpenApiExample(
                     name="Already Activated",
@@ -31,9 +33,25 @@ activation_code_view_schema = extend_schema(
                     name="Expired Code",
                     value={"detail": "Activation code has expired."},
                     response_only=True
+                ),
+                OpenApiExample(
+                    name="Invalid Code",
+                    value={"detail": "Invalid activation code."},
+                    response_only=True
                 )
             ],
-        )
+        ),
+        429: OpenApiResponse(
+            response=MessageSerializer,
+            description="Too many requests: The rate limit for activation attempts has been exceeded.",
+            examples=[
+                OpenApiExample(
+                    name="Rate Limit Exceeded",
+                    value={"detail": "Too many requests"},
+                    response_only=True
+                )
+            ],
+        ),
     },
     examples=[
         OpenApiExample(
@@ -44,8 +62,8 @@ activation_code_view_schema = extend_schema(
         ),
         OpenApiExample(
             name="Invalid Activation Code",
-            value={"detail": "Activation code has expired."},
-            description="This response occurs when the activation code has expired.",
+            value={"detail": "Invalid activation code."},
+            description="This response occurs when the activation code is invalid or does not exist.",
             response_only=True,
         ),
     ]
@@ -60,15 +78,17 @@ This link allows the user to reset their password securely.
 
 **Note**: To prevent email enumeration attacks, this endpoint will **always return a success message**, even if the email does not belong to any user.
 
-**Expected Flow**:
+### 🔹 Expected Flow:
 1. User submits their email address.
 2. If valid, a reset link is generated containing a unique token and encoded user ID.
 3. The reset link is sent to the user's email address.
 4. User can follow the link to set a new password.
 
-**Security Consideration**:
-- The response is intentionally generic to avoid disclosing whether an email is registered.
-- The reset link is time-limited and token-based to ensure security.
+### 🔹 Security Considerations:
+- **No user enumeration risk** → Response is **always `200 OK`**, even if the email is invalid.
+- **Time-limited reset links** → Tokens expire after a predefined period.
+- **Rate-limited requests** → Too many reset requests result in **`429 Too Many Requests`**.
+- **Tokens are cryptographically secure** → Prevents unauthorized access.
 """
 
 password_reset_request_schema = extend_schema(
@@ -83,6 +103,26 @@ password_reset_request_schema = extend_schema(
                 OpenApiExample(
                     name="Reset Link Sent (Success or Non-existent Email)",
                     value={"detail": "If this email exists, a reset link has been sent."},
+                    response_only=True,
+                ),
+            ],
+        ),
+        400: OpenApiResponse(
+            description="Invalid request format.",
+            examples=[
+                OpenApiExample(
+                    name="Invalid Email Format",
+                    value={"email": ["Enter a valid email address."]},
+                    response_only=True,
+                ),
+            ],
+        ),
+        429: OpenApiResponse(
+            description="Too many requests (Throttling applied).",
+            examples=[
+                OpenApiExample(
+                    name="Too Many Requests",
+                    value={"detail": "Request was throttled. Try again later."},
                     response_only=True,
                 ),
             ],
@@ -109,9 +149,10 @@ the new password.
 3. Backend verifies the token and UID, checks password match, and resets the user's password.
 
 ### 🔒 Security Considerations:
-- Token and UID ensure that only the rightful account owner can reset the password.
-- Password validation uses Django's built-in password validators to enforce strong passwords.
-- Throttle classes (rate-limiting) are applied to prevent brute-force attacks.
+- The **token** and **UID** ensure that only the rightful account owner can reset the password.
+- Password validation uses Django's built-in validators to enforce strong passwords.
+- **Throttle classes** are applied to this endpoint (with a rate of 10/hour by default) to mitigate 
+  brute-force attempts against the password reset confirmation process.
 
 ### ⚙️ Notes:
 - Both `password` and `retyped_password` must be identical.
@@ -157,6 +198,16 @@ password_reset_confirm_schema = extend_schema(
                 OpenApiExample(
                     name="Password Validation Error",
                     value={"password": ["This password is too short. It must contain at least 8 characters."]},
+                    response_only=True,
+                ),
+            ],
+        ),
+        429: OpenApiResponse(
+            description="Too many requests have been made, and the rate limit has been exceeded. Please try again later.",
+            examples=[
+                OpenApiExample(
+                    name="Throttled",
+                    value={"detail": "Too many requests"},
                     response_only=True,
                 ),
             ],
