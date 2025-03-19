@@ -1,6 +1,9 @@
 import pytest
-from rest_framework.test import APIClient
 from django.utils import timezone
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from rest_framework.test import APIClient
 from src.accounts.models import User, ActivationCode
 
 
@@ -16,7 +19,7 @@ def user(db):
     return User.objects.create_user(
         email="test@example.com",
         username="testuser",
-        password="testpass",
+        password="OldPass123!",
         is_active=False
     )
 
@@ -30,3 +33,18 @@ def activation_code(user, db):
         code="VALID123",
         created_at=timezone.now()
     )
+
+
+@pytest.fixture
+def valid_reset_data(user):
+    token_generator = PasswordResetTokenGenerator()
+    token = token_generator.make_token(user)
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    # Return a dict of valid data with new valid password
+    return {
+        "uid": uid,
+        "token": token,
+        "password": "NewStrongPass123!",
+        "retyped_password": "NewStrongPass123!"
+    }
+
