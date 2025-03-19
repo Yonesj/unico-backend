@@ -1,4 +1,4 @@
-import os
+import socket
 from .base import *
 
 
@@ -9,8 +9,13 @@ SECRET_KEY = 'django-insecure-1wpof=ecqs@udx#m=fq+xqd7shb6+58c_!!x#v5h-n2j9#apcj
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS += [
+    'debug_toolbar',
     'drf_spectacular',
 ]
+
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
+] + MIDDLEWARE
 
 DATABASES = {
     'default': {
@@ -23,14 +28,9 @@ DATABASES = {
     }
 }
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1"]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-# ]
 CORS_ALLOW_ALL_ORIGINS = True
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
