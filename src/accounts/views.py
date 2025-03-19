@@ -11,7 +11,6 @@ from django.conf import settings
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
 
 from .models import ActivationCode, User
 from .serializers import ActivationCodeSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer
@@ -28,11 +27,19 @@ class ActivationCodeView(GenericAPIView):
     throttle_classes = [ActivationCodeThrottle]
 
     def post(self, request):
+        throttle = ActivationCodeThrottle()
+        if not throttle.allow_request(request, self):
+            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
         serializer = ActivationCodeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         code = serializer.validated_data['activation_code']
 
-        activation_obj = get_object_or_404(ActivationCode, code=code)
+        try:
+            activation_obj = ActivationCode.objects.get(code=code)
+        except ActivationCode.DoesNotExist:
+            return Response({'detail': 'Invalid activation code.'}, status=status.HTTP_400_BAD_REQUEST)
+
         user = activation_obj.user
 
         if user.is_active:
@@ -60,6 +67,10 @@ class PasswordResetRequestView(GenericAPIView):
     template_name = "emails/reset_password_email.html"
 
     def post(self, request):
+        throttle = PasswordResetRequestThrottle()
+        if not throttle.allow_request(request, self):
+            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
         serializer = PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data['email']
@@ -104,6 +115,10 @@ class PasswordResetConfirmView(GenericAPIView):
     throttle_classes = [PasswordResetConfirmThrottle]
 
     def post(self, request):
+        throttle = PasswordResetConfirmThrottle()
+        if not throttle.allow_request(request, self):
+            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
         serializer = PasswordResetConfirmSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
