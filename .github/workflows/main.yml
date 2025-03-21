@@ -120,10 +120,14 @@ jobs:
       #     PROD_DB_PORT: 5432
       #   run: |
       #     python manage.py dbshell
-      - name: Make migrations if needed
+      - name: Install missing packages and make migrations if needed
         run: |
-          python -m pip install django djangorestframework djoser || (pip install django djangorestframework djoser && python manage.py makemigrations)
+          for package in "django" "djangorestframework" "djoser"; do
+            python -c "import ${package}" 2>/dev/null || pip install ${package}
+          done
+          python manage.py makemigrations
 
+        
       - name: Run migrations
         env:
           DJANGO_SETTINGS_MODULE: config.settings.production
