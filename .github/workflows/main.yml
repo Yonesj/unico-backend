@@ -122,7 +122,7 @@ jobs:
       #     python manage.py dbshell
       - name: Make migrations if needed
         run: |
-          python manage.py makemigrations --check --noinput || (pip install django && python manage.py makemigrations)
+          python -m pip install django djangorestframework || (pip install django && pip install djangorestframework && python manage.py makemigrations)
 
       - name: Run migrations
         env:
