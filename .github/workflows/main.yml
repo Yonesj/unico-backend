@@ -122,7 +122,7 @@ jobs:
       #     python manage.py dbshell
       - name: Make migrations if needed
         run: |
-          python -m pip install django djangorestframework || (pip install djoser django && pip install djangorestframework && python manage.py makemigrations)
+          python -m pip install django djangorestframework djoser || (pip install django djangorestframework djoser && python manage.py makemigrations)
 
       - name: Run migrations
         env:
