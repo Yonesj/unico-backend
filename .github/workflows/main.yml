@@ -122,8 +122,8 @@ jobs:
       #     python manage.py dbshell
       - name: Make migrations if needed
         run: |
-          python manage.py makemigrations --check --noinput || python manage.py makemigrations
-          
+          python manage.py makemigrations --check --noinput || (pip install django && python manage.py makemigrations)
+
       - name: Run migrations
         env:
           DJANGO_SETTINGS_MODULE: config.settings.production
