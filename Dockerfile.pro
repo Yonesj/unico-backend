@@ -4,8 +4,9 @@ WORKDIR /usr/src/app
 
 COPY requirements/ requirements/
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements/production.txt
+    pip install --no-cache-dir -r requirements/production.txt && \
     pip install --no-cache-dir -r requirements/development.txt
+
 
 FROM python:3.12-slim
 
