@@ -2,6 +2,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from rest_framework import __path__ as drf_path
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -22,6 +24,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -51,9 +54,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
@@ -64,13 +64,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = (
+    ('fa', 'Persian'),
+    ('en', 'English'),
+)
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+    os.path.join(drf_path[0], 'locale'),
+]
+
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [

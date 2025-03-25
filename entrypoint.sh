@@ -3,6 +3,9 @@
 echo "Setting DJANGO_SETTINGS_MODULE..."
 export DJANGO_SETTINGS_MODULE=config.settings.development
 
+echo "Compiling translations..."
+python manage.py compilemessages
+
 echo "Applying migrations..."
 python manage.py migrate
 
