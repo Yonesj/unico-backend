@@ -2,6 +2,8 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer as Base
 
@@ -76,18 +78,18 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         retyped_password = attrs.get('retyped_password')
 
         if password != retyped_password:
-            raise serializers.ValidationError({"retyped_password": "Passwords do not match."})
+            raise serializers.ValidationError({"retyped_password": _("Passwords do not match.")})
 
         try:
             uid = urlsafe_base64_decode(uid_b64).decode()
             user = User.objects.get(pk=uid)
         except (User.DoesNotExist, ValueError, TypeError):
-            raise serializers.ValidationError({"uid": "Invalid or malformed UID."})
+            raise serializers.ValidationError({"uid": _("Invalid or malformed UID.")})
 
         token_generator = PasswordResetTokenGenerator()
 
         if not token_generator.check_token(user, token):
-            raise serializers.ValidationError({"token": "Token is expired or invalid."})
+            raise serializers.ValidationError({"token": _("Token is expired or invalid.")})
 
         self.context['user'] = user
         return attrs
