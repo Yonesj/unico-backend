@@ -9,7 +9,9 @@ from src.accounts.models import User, ActivationCode
 
 @pytest.fixture
 def api_client():
-    return APIClient()
+    client = APIClient()
+    client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
+    return client
 
 @pytest.fixture
 def user(db):
