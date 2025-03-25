@@ -598,493 +598,493 @@ msgstr "داده‌های ManagementForm گم شده یا دستکاری شده 
 #, python-format
 msgid "Please submit at most %(num)d form."
 msgid_plural "Please submit at most %(num)d forms."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "لطفاً حداکثر %(num)d فرم ارسال کنید."
+msgstr[1] "لطفاً حداکثر %(num)d فرم ارسال کنید."
 
 #: .\venv\Lib\site-packages\django\forms\formsets.py:70
 #, python-format
 msgid "Please submit at least %(num)d form."
 msgid_plural "Please submit at least %(num)d forms."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "لطفاً حداقل %(num)d فرم ارسال کنید."
+msgstr[1] "لطفاً حداقل %(num)d فرم ارسال کنید."
 
 #: .\venv\Lib\site-packages\django\forms\formsets.py:484
 #: .\venv\Lib\site-packages\django\forms\formsets.py:491
 msgid "Order"
-msgstr ""
+msgstr "ترتیب"
 
 #: .\venv\Lib\site-packages\django\forms\formsets.py:499
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: .\venv\Lib\site-packages\django\forms\models.py:901
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
+msgstr "لطفاً داده‌های تکراری برای %(field)s را اصلاح کنید."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
+msgstr "لطفاً داده‌های تکراری برای %(field)s را که باید منحصر به فرد باشد، اصلاح کنید."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:913
 #, python-format
 msgid ""
 "Please correct the duplicate data for %(field_name)s which must be unique "
 "for the %(lookup)s in %(date_field)s."
-msgstr ""
+msgstr "لطفاً داده‌های تکراری برای %(field_name)s را که باید برای %(lookup)s در %(date_field)s منحصر به فرد باشد، اصلاح کنید."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:922
 msgid "Please correct the duplicate values below."
-msgstr ""
+msgstr "لطفاً مقادیر تکراری زیر را اصلاح کنید."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:1359
 msgid "The inline value did not match the parent instance."
-msgstr ""
+msgstr "مقدار درون خطی با نمونه والد مطابقت نداشت."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:1450
 msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr ""
+msgstr "یک انتخاب معتبر انتخاب کنید. این انتخاب یکی از انتخاب‌های موجود نیست."
 
 #: .\venv\Lib\site-packages\django\forms\models.py:1594
 #, python-format
 msgid "“%(pk)s” is not a valid value."
-msgstr ""
+msgstr "“%(pk)s” یک مقدار معتبر نیست."
 
 #: .\venv\Lib\site-packages\django\forms\utils.py:227
 #, python-format
 msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
-msgstr ""
+msgstr "%(datetime)s در منطقه زمانی %(current_timezone)s قابل تفسیر نیست. ممکن است مبهم باشد یا وجود نداشته باشد."
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:461
 msgid "Clear"
-msgstr ""
+msgstr "پاک کردن"
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:462
 msgid "Currently"
-msgstr ""
+msgstr "در حال حاضر"
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:463
 msgid "Change"
-msgstr ""
+msgstr "تغییر"
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:800
 msgid "Unknown"
-msgstr ""
+msgstr "ناشناخته"
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:801
 msgid "Yes"
-msgstr ""
+msgstr "بله"
 
 #: .\venv\Lib\site-packages\django\forms\widgets.py:802
 msgid "No"
-msgstr ""
+msgstr "خیر"
 
 #. Translators: Please do not add spaces around commas.
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
 msgid "yes,no,maybe"
-msgstr ""
+msgstr "بله،خیر،شاید"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
 #, python-format
 msgid "%(size)d byte"
 msgid_plural "%(size)d bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(size)d بایت"
+msgstr[1] "%(size)d بایت"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s کیلوبایت"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s مگابایت"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
 #, python-format
 msgid "%s GB"
-msgstr ""
+msgstr "%s گیگابایت"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
 #, python-format
 msgid "%s TB"
-msgstr ""
+msgstr "%s ترابایت"
 
 #: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
 #, python-format
 msgid "%s PB"
-msgstr ""
+msgstr "%s پتابایت"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:74
 msgid "p.m."
-msgstr ""
+msgstr "بعد از ظهر"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:75
 msgid "a.m."
-msgstr ""
+msgstr "قبل از ظهر"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:80
 msgid "PM"
-msgstr ""
+msgstr "بعد از ظهر"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:81
 msgid "AM"
-msgstr ""
+msgstr "قبل از ظهر"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:153
 msgid "midnight"
-msgstr ""
+msgstr "نیمه‌شب"
 
 #: .\venv\Lib\site-packages\django\utils\dateformat.py:155
 msgid "noon"
-msgstr ""
+msgstr "ظهر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:7
 msgid "Monday"
-msgstr ""
+msgstr "دوشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:8
 msgid "Tuesday"
-msgstr ""
+msgstr "سه‌شنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:9
 msgid "Wednesday"
-msgstr ""
+msgstr "چهارشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:10
 msgid "Thursday"
-msgstr ""
+msgstr "پنجشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:11
 msgid "Friday"
-msgstr ""
+msgstr "جمعه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:12
 msgid "Saturday"
-msgstr ""
+msgstr "شنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:13
 msgid "Sunday"
-msgstr ""
+msgstr "یکشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:16
 msgid "Mon"
-msgstr ""
+msgstr "دوشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:17
 msgid "Tue"
-msgstr ""
+msgstr "سه‌شنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:18
 msgid "Wed"
-msgstr ""
+msgstr "چهارشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:19
 msgid "Thu"
-msgstr ""
+msgstr "پنجشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:20
 msgid "Fri"
-msgstr ""
+msgstr "جمعه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:21
 msgid "Sat"
-msgstr ""
+msgstr "شنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:22
 msgid "Sun"
-msgstr ""
+msgstr "یکشنبه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:25
 msgid "January"
-msgstr ""
+msgstr "ژانویه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:26
 msgid "February"
-msgstr ""
+msgstr "فوریه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:27
 msgid "March"
-msgstr ""
+msgstr "مارس"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:28
 msgid "April"
-msgstr ""
+msgstr "آوریل"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:29
 msgid "May"
-msgstr ""
+msgstr "مه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:30
 msgid "June"
-msgstr ""
+msgstr "ژوئن"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:31
 msgid "July"
-msgstr ""
+msgstr "ژوئیه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:32
 msgid "August"
-msgstr ""
+msgstr "اوت"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:33
 msgid "September"
-msgstr ""
+msgstr "سپتامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:34
 msgid "October"
-msgstr ""
+msgstr "اکتبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:35
 msgid "November"
-msgstr ""
+msgstr "نوامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:36
 msgid "December"
-msgstr ""
+msgstr "دسامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:39
 msgid "jan"
-msgstr ""
+msgstr "ژانویه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:40
 msgid "feb"
-msgstr ""
+msgstr "فوریه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:41
 msgid "mar"
-msgstr ""
+msgstr "مارس"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:42
 msgid "apr"
-msgstr ""
+msgstr "آوریل"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:43
 msgid "may"
-msgstr ""
+msgstr "مه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:44
 msgid "jun"
-msgstr ""
+msgstr "ژوئن"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:45
 msgid "jul"
-msgstr ""
+msgstr "ژوئیه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:46
 msgid "aug"
-msgstr ""
+msgstr "اوت"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:47
 msgid "sep"
-msgstr ""
+msgstr "سپتامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:48
 msgid "oct"
-msgstr ""
+msgstr "اکتبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:49
 msgid "nov"
-msgstr ""
+msgstr "نوامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:50
 msgid "dec"
-msgstr ""
+msgstr "دسامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:53
 msgctxt "abbrev. month"
 msgid "Jan."
-msgstr ""
+msgstr "ژانویه."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:54
 msgctxt "abbrev. month"
 msgid "Feb."
-msgstr ""
+msgstr "فوریه."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:55
 msgctxt "abbrev. month"
 msgid "March"
-msgstr ""
+msgstr "مارس"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:56
 msgctxt "abbrev. month"
 msgid "April"
-msgstr ""
+msgstr "آوریل"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:57
 msgctxt "abbrev. month"
 msgid "May"
-msgstr ""
+msgstr "مه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:58
 msgctxt "abbrev. month"
 msgid "June"
-msgstr ""
+msgstr "ژوئن"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:59
 msgctxt "abbrev. month"
 msgid "July"
-msgstr ""
+msgstr "ژوئیه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:60
 msgctxt "abbrev. month"
 msgid "Aug."
-msgstr ""
+msgstr "اوت."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:61
 msgctxt "abbrev. month"
 msgid "Sept."
-msgstr ""
+msgstr "سپتامبر."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:62
 msgctxt "abbrev. month"
 msgid "Oct."
-msgstr ""
+msgstr "اکتبر."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:63
 msgctxt "abbrev. month"
 msgid "Nov."
-msgstr ""
+msgstr "نوامبر."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:64
 msgctxt "abbrev. month"
 msgid "Dec."
-msgstr ""
+msgstr "دسامبر."
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:67
 msgctxt "alt. month"
 msgid "January"
-msgstr ""
+msgstr "ژانویه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:68
 msgctxt "alt. month"
 msgid "February"
-msgstr ""
+msgstr "فوریه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:69
 msgctxt "alt. month"
 msgid "March"
-msgstr ""
+msgstr "مارس"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:70
 msgctxt "alt. month"
 msgid "April"
-msgstr ""
+msgstr "آوریل"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:71
 msgctxt "alt. month"
 msgid "May"
-msgstr ""
+msgstr "مه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:72
 msgctxt "alt. month"
 msgid "June"
-msgstr ""
+msgstr "ژوئن"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:73
 msgctxt "alt. month"
 msgid "July"
-msgstr ""
+msgstr "ژوئیه"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:74
 msgctxt "alt. month"
 msgid "August"
-msgstr ""
+msgstr "اوت"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:75
 msgctxt "alt. month"
 msgid "September"
-msgstr ""
+msgstr "سپتامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:76
 msgctxt "alt. month"
 msgid "October"
-msgstr ""
+msgstr "اکتبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:77
 msgctxt "alt. month"
 msgid "November"
-msgstr ""
+msgstr "نوامبر"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:78
 msgctxt "alt. month"
 msgid "December"
-msgstr ""
+msgstr "دسامبر"
 
 #: .\venv\Lib\site-packages\django\utils\ipv6.py:20
 msgid "This is not a valid IPv6 address."
-msgstr ""
+msgstr "این یک آدرس IPv6 معتبر نیست."
 
 #: .\venv\Lib\site-packages\django\utils\text.py:67
 #, python-format
 msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
-msgstr ""
+msgstr "%(truncated_text)s…"
 
 #: .\venv\Lib\site-packages\django\utils\text.py:278
 msgid "or"
-msgstr ""
+msgstr "یا"
 
 #. Translators: This string is used as a separator between list elements
 #: .\venv\Lib\site-packages\django\utils\text.py:297
 #: .\venv\Lib\site-packages\django\utils\timesince.py:135
 msgid ", "
-msgstr ""
+msgstr "، "
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:8
 #, python-format
 msgid "%(num)d year"
 msgid_plural "%(num)d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d سال"
+msgstr[1] "%(num)d سال"
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:9
 #, python-format
 msgid "%(num)d month"
 msgid_plural "%(num)d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d ماه"
+msgstr[1] "%(num)d ماه"
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:10
 #, python-format
 msgid "%(num)d week"
 msgid_plural "%(num)d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d هفته"
+msgstr[1] "%(num)d هفته"
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:11
 #, python-format
 msgid "%(num)d day"
 msgid_plural "%(num)d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d روز"
+msgstr[1] "%(num)d روز"
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:12
 #, python-format
 msgid "%(num)d hour"
 msgid_plural "%(num)d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d ساعت"
+msgstr[1] "%(num)d ساعت"
 
 #: .\venv\Lib\site-packages\django\utils\timesince.py:13
 #, python-format
 msgid "%(num)d minute"
 msgid_plural "%(num)d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(num)d دقیقه"
+msgstr[1] "%(num)d دقیقه"
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:29
 msgid "Forbidden"
-msgstr ""
+msgstr "ممنوع"
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:30
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "تأیید CSRF ناموفق بود. درخواست لغو شد."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:34
 msgid ""
@@ -1092,14 +1092,14 @@ msgid ""
 "header” to be sent by your web browser, but none was sent. This header is "
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
-msgstr ""
+msgstr "این پیام را مشاهده می‌کنید زیرا این سایت HTTPS نیاز دارد که یک «هدر ارجاع دهنده» توسط مرورگر وب شما ارسال شود، اما هیچ‌کدام ارسال نشد. این هدر به دلایل امنیتی مورد نیاز است تا اطمینان حاصل شود که مرورگر شما توسط اشخاص ثالث ربوده نمی‌شود."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:40
 msgid ""
 "If you have configured your browser to disable “Referer” headers, please re-"
 "enable them, at least for this site, or for HTTPS connections, or for “same-"
 "origin” requests."
-msgstr ""
+msgstr "اگر مرورگر خود را برای غیرفعال کردن هدرهای «ارجاع دهنده» پیکربندی کرده‌اید، لطفاً آن‌ها را دوباره فعال کنید، حداقل برای این سایت، یا برای اتصالات HTTPS، یا برای درخواست‌های «هم مبدأ»."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:45
 msgid ""
@@ -1108,73 +1108,73 @@ msgid ""
 "CSRF protection requires the “Referer” header to do strict referer checking. "
 "If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
 "\" …> for links to third-party sites."
-msgstr ""
+msgstr "اگر از تگ <meta name=\"referrer\" content=\"no-referrer\"> استفاده می‌کنید یا هدر «Referrer-Policy: no-referrer» را شامل می‌کنید، لطفاً آن‌ها را حذف کنید. محافظت CSRF نیاز دارد که هدر «ارجاع دهنده» برای انجام بررسی دقیق ارجاع دهنده استفاده شود. اگر نگران حریم خصوصی هستید، از جایگزین‌هایی مانند <a rel=\"noreferrer\" …> برای لینک‌ها به سایت‌های شخص ثالث استفاده کنید."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:54
 msgid ""
 "You are seeing this message because this site requires a CSRF cookie when "
 "submitting forms. This cookie is required for security reasons, to ensure "
 "that your browser is not being hijacked by third parties."
-msgstr ""
+msgstr "این پیام را مشاهده می‌کنید زیرا این سایت هنگام ارسال فرم‌ها به یک کوکی CSRF نیاز دارد. این کوکی به دلایل امنیتی مورد نیاز است تا اطمینان حاصل شود که مرورگر شما توسط اشخاص ثالث ربوده نمی‌شود."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:60
 msgid ""
 "If you have configured your browser to disable cookies, please re-enable "
 "them, at least for this site, or for “same-origin” requests."
-msgstr ""
+msgstr "اگر مرورگر خود را برای غیرفعال کردن کوکی‌ها پیکربندی کرده‌اید، لطفاً آن‌ها را دوباره فعال کنید، حداقل برای این سایت، یا برای درخواست‌های «هم مبدأ»."
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:66
 msgid "More information is available with DEBUG=True."
-msgstr ""
+msgstr "اطلاعات بیشتر با DEBUG=True در دسترس است."
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:44
 msgid "No year specified"
-msgstr ""
+msgstr "سال مشخص نشده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:64
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:115
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:214
 msgid "Date out of range"
-msgstr ""
+msgstr "تاریخ خارج از محدوده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:94
 msgid "No month specified"
-msgstr ""
+msgstr "ماه مشخص نشده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:147
 msgid "No day specified"
-msgstr ""
+msgstr "روز مشخص نشده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:194
 msgid "No week specified"
-msgstr ""
+msgstr "هفته مشخص نشده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:349
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:380
 #, python-format
 msgid "No %(verbose_name_plural)s available"
-msgstr ""
+msgstr "هیچ %(verbose_name_plural)s موجود نیست"
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:652
 #, python-format
 msgid ""
 "Future %(verbose_name_plural)s not available because %(class_name)s."
 "allow_future is False."
-msgstr ""
+msgstr "%(verbose_name_plural)s آینده در دسترس نیست زیرا %(class_name)s.allow_future نادرست است."
 
 #: .\venv\Lib\site-packages\django\views\generic\dates.py:692
 #, python-format
 msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
+msgstr "رشته تاریخ نامعتبر “%(datestr)s” با فرمت “%(format)s” داده شده است"
 
 #: .\venv\Lib\site-packages\django\views\generic\detail.py:56
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "هیچ %(verbose_name)s مطابق با پرس و جو یافت نشد"
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:70
 msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
+msgstr "صفحه «آخرین» نیست و نمی‌تواند به یک عدد صحیح تبدیل شود."
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:77
 #, python-format
