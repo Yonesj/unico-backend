@@ -8,6 +8,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -29,7 +30,7 @@ class ActivationCodeView(GenericAPIView):
     def post(self, request):
         throttle = ActivationCodeThrottle()
         if not throttle.allow_request(request, self):
-            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+            return Response({"detail": _("Too many requests")}, status=status.HTTP_429_TOO_MANY_REQUESTS)
 
         serializer = ActivationCodeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -38,22 +39,22 @@ class ActivationCodeView(GenericAPIView):
         try:
             activation_obj = ActivationCode.objects.get(code=code)
         except ActivationCode.DoesNotExist:
-            return Response({'detail': 'Invalid activation code.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': _('Invalid activation code.')}, status=status.HTTP_400_BAD_REQUEST)
 
         user = activation_obj.user
 
         if user.is_active:
-            return Response({'detail': 'User is already activated.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': _('User is already activated.')}, status=status.HTTP_400_BAD_REQUEST)
 
         now = timezone.now()
         if not activation_obj.created_at or now > activation_obj.created_at + timedelta(minutes=10):
-            return Response({'detail': 'Activation code has expired.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': _('Activation code has expired.')}, status=status.HTTP_400_BAD_REQUEST)
 
         user.is_active = True
         user.save(update_fields=['is_active'])
         activation_obj.delete()
 
-        return Response({'detail': 'User activated successfully.'}, status=status.HTTP_200_OK)
+        return Response({'detail': _('User activated successfully.')}, status=status.HTTP_200_OK)
 
 
 @password_reset_request_schema
@@ -69,7 +70,7 @@ class PasswordResetRequestView(GenericAPIView):
     def post(self, request):
         throttle = PasswordResetRequestThrottle()
         if not throttle.allow_request(request, self):
-            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+            return Response({"detail": _("Too many requests")}, status=status.HTTP_429_TOO_MANY_REQUESTS)
 
         serializer = PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -78,7 +79,7 @@ class PasswordResetRequestView(GenericAPIView):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({"detail": "If this email exists, a reset link has been sent."}, status=status.HTTP_200_OK)
+            return Response({"detail": _("If this email exists, a reset link has been sent.")}, status=status.HTTP_200_OK)
 
         token_generator = PasswordResetTokenGenerator()
         token = token_generator.make_token(user)
@@ -103,7 +104,7 @@ class PasswordResetRequestView(GenericAPIView):
             # logger.error(f"Password reset email failed: {e}")
             pass
 
-        return Response({"detail": "If this email exists, a reset link has been sent."}, status=status.HTTP_200_OK)
+        return Response({"detail": _("If this email exists, a reset link has been sent.")}, status=status.HTTP_200_OK)
 
 
 @password_reset_confirm_schema
@@ -117,9 +118,9 @@ class PasswordResetConfirmView(GenericAPIView):
     def post(self, request):
         throttle = PasswordResetConfirmThrottle()
         if not throttle.allow_request(request, self):
-            return Response({"detail": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+            return Response({"detail": _("Too many requests")}, status=status.HTTP_429_TOO_MANY_REQUESTS)
 
         serializer = PasswordResetConfirmSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'detail': 'Password has been reset successfully.'}, status=status.HTTP_200_OK)
+        return Response({'detail': _('Password has been reset successfully.')}, status=status.HTTP_200_OK)
