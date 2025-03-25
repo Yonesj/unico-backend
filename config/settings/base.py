@@ -2,6 +2,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from rest_framework import __path__ as drf_path
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -77,6 +79,7 @@ LANGUAGES = (
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
+    os.path.join(drf_path[0], 'locale'),
 ]
 
 
