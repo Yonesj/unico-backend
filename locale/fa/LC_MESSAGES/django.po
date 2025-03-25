@@ -161,28 +161,28 @@ msgid ""
 msgid_plural ""
 "Ensure this value has at most %(limit_value)d characters (it has "
 "%(show_value)d)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "اطمینان حاصل کنید که این مقدار حداکثر %(limit_value)d کاراکتر دارد (مقدار وارد شده %(show_value)d کاراکتر دارد)."
+msgstr[1] "اطمینان حاصل کنید که این مقدار حداکثر %(limit_value)d کاراکتر دارد (مقدار وارد شده %(show_value)d کاراکتر دارد)."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:535
 #: .\venv\Lib\site-packages\django\forms\fields.py:359
 #: .\venv\Lib\site-packages\django\forms\fields.py:398
 msgid "Enter a number."
-msgstr ""
+msgstr "یک عدد وارد کنید."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:537
 #, python-format
 msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "اطمینان حاصل کنید که در مجموع بیشتر از %(max)s رقم وجود ندارد."
+msgstr[1] "اطمینان حاصل کنید که در مجموع بیشتر از %(max)s رقم وجود ندارد."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:542
 #, python-format
 msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "اطمینان حاصل کنید که بیشتر از %(max)s رقم اعشار وجود ندارد."
+msgstr[1] "اطمینان حاصل کنید که بیشتر از %(max)s رقم اعشار وجود ندارد."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:547
 #, python-format
@@ -190,52 +190,52 @@ msgid ""
 "Ensure that there are no more than %(max)s digit before the decimal point."
 msgid_plural ""
 "Ensure that there are no more than %(max)s digits before the decimal point."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "اطمینان حاصل کنید که بیشتر از %(max)s رقم قبل از نقطه اعشار وجود ندارد."
+msgstr[1] "اطمینان حاصل کنید که بیشتر از %(max)s رقم قبل از نقطه اعشار وجود ندارد."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:618
 #, python-format
 msgid ""
 "File extension “%(extension)s” is not allowed. Allowed extensions are: "
 "%(allowed_extensions)s."
-msgstr ""
+msgstr "پسوند فایل “%(extension)s” مجاز نیست. پسوندهای مجاز عبارتند از: %(allowed_extensions)s."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:680
 msgid "Null characters are not allowed."
-msgstr ""
+msgstr "کاراکترهای null مجاز نیستند."
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1572
 #: .\venv\Lib\site-packages\django\forms\models.py:908
 msgid "and"
-msgstr ""
+msgstr "و"
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1574
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s با این %(field_labels)s از قبل وجود دارد."
 
 #: .\venv\Lib\site-packages\django\db\models\constraints.py:22
 #, python-format
 msgid "Constraint “%(name)s” is violated."
-msgstr ""
+msgstr "محدودیت “%(name)s” نقض شده است."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
 #, python-format
 msgid "Value %(value)r is not a valid choice."
-msgstr ""
+msgstr "مقدار %(value)r یک انتخاب معتبر نیست."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
 msgid "This field cannot be null."
-msgstr ""
+msgstr "این فیلد نمی‌تواند null باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "این فیلد نمی‌تواند خالی باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "%(model_name)s با این %(field_label)s از قبل وجود دارد."
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or
 #. 'month'. Eg: "Title must be unique for pub_date year"
@@ -243,46 +243,46 @@ msgstr ""
 #, python-format
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
-msgstr ""
+msgstr "%(field_label)s باید برای %(date_field_label)s %(lookup_type)s منحصر به فرد باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr ""
+msgstr "نوع فیلد: %(field_type)s"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1156
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "مقدار “%(value)s” باید True یا False باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1157
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "مقدار “%(value)s” باید True، False یا None باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1159
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "بولی (True یا False)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1209
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr ""
+msgstr "رشته (حداکثر %(max_length)s کاراکتر)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1211
 msgid "String (unlimited)"
-msgstr ""
+msgstr "رشته (بدون محدودیت)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1320
 msgid "Comma-separated integers"
-msgstr ""
+msgstr "اعداد صحیح جدا شده با کاما"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1421
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
 "format."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت تاریخ نامعتبر دارد. باید در فرمت YYYY-MM-DD باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1425
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1560
@@ -290,309 +290,309 @@ msgstr ""
 msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
 "date."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت صحیح (YYYY-MM-DD) را دارد، اما تاریخ نامعتبر است."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1429
 msgid "Date (without time)"
-msgstr ""
+msgstr "تاریخ (بدون زمان)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1556
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
 "uuuuuu]][TZ] format."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت نامعتبر دارد. باید در فرمت YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1564
 #, python-format
 msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
 "[TZ]) but it is an invalid date/time."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت صحیح (YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]) را دارد، اما تاریخ/زمان نامعتبر است."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1569
 msgid "Date (with time)"
-msgstr ""
+msgstr "تاریخ (با زمان)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1696
 #, python-format
 msgid "“%(value)s” value must be a decimal number."
-msgstr ""
+msgstr "مقدار “%(value)s” باید یک عدد اعشاری باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1698
 msgid "Decimal number"
-msgstr ""
+msgstr "عدد اعشاری"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1859
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
 "uuuuuu] format."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت نامعتبر دارد. باید در فرمت [DD] [[HH:]MM:]ss[.uuuuuu] باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1863
 msgid "Duration"
-msgstr ""
+msgstr "مدت زمان"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1915
 msgid "Email address"
-msgstr ""
+msgstr "آدرس ایمیل"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1940
 msgid "File path"
-msgstr ""
+msgstr "مسیر فایل"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2018
 #, python-format
 msgid "“%(value)s” value must be a float."
-msgstr ""
+msgstr "مقدار “%(value)s” باید یک عدد ممیز شناور باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2020
 msgid "Floating point number"
-msgstr ""
+msgstr "عدد ممیز شناور"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2060
 #, python-format
 msgid "“%(value)s” value must be an integer."
-msgstr ""
+msgstr "مقدار “%(value)s” باید یک عدد صحیح باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2062
 msgid "Integer"
-msgstr ""
+msgstr "عدد صحیح"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2158
 msgid "Big (8 byte) integer"
-msgstr ""
+msgstr "عدد صحیح بزرگ (8 بایتی)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2175
 msgid "Small integer"
-msgstr ""
+msgstr "عدد صحیح کوچک"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2183
 msgid "IPv4 address"
-msgstr ""
+msgstr "آدرس IPv4"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2214
 msgid "IP address"
-msgstr ""
+msgstr "آدرس IP"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2305
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
 #, python-format
 msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
+msgstr "مقدار “%(value)s” باید None، True یا False باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2308
 msgid "Boolean (Either True, False or None)"
-msgstr ""
+msgstr "بولی (True، False یا None)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2359
 msgid "Positive big integer"
-msgstr ""
+msgstr "عدد صحیح بزرگ مثبت"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2374
 msgid "Positive integer"
-msgstr ""
+msgstr "عدد صحیح مثبت"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2389
 msgid "Positive small integer"
-msgstr ""
+msgstr "عدد صحیح کوچک مثبت"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2405
 #, python-format
 msgid "Slug (up to %(max_length)s)"
-msgstr ""
+msgstr "اسلاگ (حداکثر %(max_length)s کاراکتر)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2441
 msgid "Text"
-msgstr ""
+msgstr "متن"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2521
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت نامعتبر دارد. باید در فرمت HH:MM[:ss[.uuuuuu]] باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2525
 #, python-format
 msgid ""
 "“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
 "invalid time."
-msgstr ""
+msgstr "مقدار “%(value)s” فرمت صحیح (HH:MM[:ss[.uuuuuu]]) را دارد، اما زمان نامعتبر است."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2529
 msgid "Time"
-msgstr ""
+msgstr "زمان"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2637
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2661
 msgid "Raw binary data"
-msgstr ""
+msgstr "داده‌های باینری خام"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2726
 #, python-format
 msgid "“%(value)s” is not a valid UUID."
-msgstr ""
+msgstr "“%(value)s” یک UUID معتبر نیست."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2728
 msgid "Universally unique identifier"
-msgstr ""
+msgstr "شناسه منحصر به فرد جهانی"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
 msgid "File"
-msgstr ""
+msgstr "فایل"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
 msgid "Image"
-msgstr ""
+msgstr "تصویر"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
 msgid "A JSON object"
-msgstr ""
+msgstr "یک شیء JSON"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
 msgid "Value must be valid JSON."
-msgstr ""
+msgstr "مقدار باید JSON معتبر باشد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:932
 #, python-format
 msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr ""
+msgstr "نمونه %(model)s با %(field)s %(value)r وجود ندارد."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:934
 msgid "Foreign Key (type determined by related field)"
-msgstr ""
+msgstr "کلید خارجی (نوع توسط فیلد مرتبط تعیین می‌شود)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1228
 msgid "One-to-one relationship"
-msgstr ""
+msgstr "رابطه یک به یک"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1285
 #, python-format
 msgid "%(from)s-%(to)s relationship"
-msgstr ""
+msgstr "رابطه %(from)s- %(to)s"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1287
 #, python-format
 msgid "%(from)s-%(to)s relationships"
-msgstr ""
+msgstr "روابط %(from)s- %(to)s"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
 msgid "Many-to-many relationship"
-msgstr ""
+msgstr "رابطه چند به چند"
 
 #. Translators: If found as last label character, these punctuation
 #. characters will prevent the default label_suffix to be appended to the label
 #: .\venv\Lib\site-packages\django\forms\boundfield.py:185
 msgid ":?.!"
-msgstr ""
+msgstr ":؟.!"
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:95
 msgid "This field is required."
-msgstr ""
+msgstr "این فیلد الزامی است."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:308
 msgid "Enter a whole number."
-msgstr ""
+msgstr "یک عدد صحیح وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:479
 #: .\venv\Lib\site-packages\django\forms\fields.py:1260
 msgid "Enter a valid date."
-msgstr ""
+msgstr "یک تاریخ معتبر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:502
 #: .\venv\Lib\site-packages\django\forms\fields.py:1261
 msgid "Enter a valid time."
-msgstr ""
+msgstr "یک زمان معتبر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:529
 msgid "Enter a valid date/time."
-msgstr ""
+msgstr "یک تاریخ/زمان معتبر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:563
 msgid "Enter a valid duration."
-msgstr ""
+msgstr "یک مدت زمان معتبر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:564
 #, python-brace-format
 msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
+msgstr "تعداد روزها باید بین {min_days} و {max_days} باشد."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:633
 msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
+msgstr "هیچ فایلی ارسال نشد. نوع رمزگذاری فرم را بررسی کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:634
 msgid "No file was submitted."
-msgstr ""
+msgstr "هیچ فایلی ارسال نشد."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:635
 msgid "The submitted file is empty."
-msgstr ""
+msgstr "فایل ارسال شده خالی است."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:637
 #, python-format
 msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "اطمینان حاصل کنید که این نام فایل حداکثر %(max)d کاراکتر دارد (مقدار وارد شده %(length)d کاراکتر دارد)."
+msgstr[1] "اطمینان حاصل کنید که این نام فایل حداکثر %(max)d کاراکتر دارد (مقدار وارد شده %(length)d کاراکتر دارد)."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:642
 msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr ""
+msgstr "لطفاً یا یک فایل ارسال کنید یا چک‌باکس پاک کردن را علامت بزنید، نه هر دو."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:710
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
-msgstr ""
+msgstr "یک تصویر معتبر بارگذاری کنید. فایلی که بارگذاری کردید یا تصویر نبود یا تصویر خراب بود."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:882
 #: .\venv\Lib\site-packages\django\forms\fields.py:968
 #: .\venv\Lib\site-packages\django\forms\models.py:1592
 #, python-format
 msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
+msgstr "یک انتخاب معتبر انتخاب کنید. %(value)s یکی از انتخاب‌های موجود نیست."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:970
 #: .\venv\Lib\site-packages\django\forms\fields.py:1089
 #: .\venv\Lib\site-packages\django\forms\models.py:1590
 msgid "Enter a list of values."
-msgstr ""
+msgstr "یک لیست از مقادیر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:1090
 msgid "Enter a complete value."
-msgstr ""
+msgstr "یک مقدار کامل وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:1332
 msgid "Enter a valid UUID."
-msgstr ""
+msgstr "یک UUID معتبر وارد کنید."
 
 #: .\venv\Lib\site-packages\django\forms\fields.py:1362
 msgid "Enter a valid JSON."
-msgstr ""
+msgstr "یک JSON معتبر وارد کنید."
 
 #. Translators: This is the default suffix added to form field labels
 #: .\venv\Lib\site-packages\django\forms\forms.py:94
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: .\venv\Lib\site-packages\django\forms\forms.py:230
 #, python-format
 msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
+msgstr "(فیلد مخفی %(name)s) %(error)s"
 
 #: .\venv\Lib\site-packages\django\forms\formsets.py:61
 #, python-format
 msgid ""
 "ManagementForm data is missing or has been tampered with. Missing fields: "
 "%(field_names)s. You may need to file a bug report if the issue persists."
-msgstr ""
+msgstr "داده‌های ManagementForm گم شده یا دستکاری شده است. فیلدهای گم شده: %(field_names)s. اگر مشکل ادامه داشت، ممکن است لازم باشد یک گزارش اشکال ثبت کنید."
 
 #: .\venv\Lib\site-packages\django\forms\formsets.py:65
 #, python-format
