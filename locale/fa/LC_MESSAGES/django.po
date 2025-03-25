@@ -1179,40 +1179,40 @@ msgstr "صفحه «آخرین» نیست و نمی‌تواند به یک عدد
 #: .\venv\Lib\site-packages\django\views\generic\list.py:77
 #, python-format
 msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
+msgstr "صفحه نامعتبر (%(page_number)s): %(message)s"
 
 #: .\venv\Lib\site-packages\django\views\generic\list.py:169
 #, python-format
 msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""
+msgstr "لیست خالی است و “%(class_name)s.allow_empty” نادرست است."
 
 #: .\venv\Lib\site-packages\django\views\static.py:49
 msgid "Directory indexes are not allowed here."
-msgstr ""
+msgstr "نمایه های دایرکتوری در اینجا مجاز نیستند."
 
 #: .\venv\Lib\site-packages\django\views\static.py:51
 #, python-format
 msgid "“%(path)s” does not exist"
-msgstr ""
+msgstr "“%(path)s” وجود ندارد"
 
 #: .\venv\Lib\site-packages\django\views\static.py:68
 #: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
 #: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
 #, python-format
 msgid "Index of %(directory)s"
-msgstr ""
+msgstr "نمایه %(directory)s"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
 msgid "The install worked successfully! Congratulations!"
-msgstr ""
+msgstr "نصب با موفقیت انجام شد! تبریک!"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
 #, python-format
 msgid ""
 "View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
 "target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
-msgstr ""
+msgstr "مشاهده <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" target=\"_blank\" rel=\"noopener\">یادداشت‌های انتشار</a> برای Django %(version)s"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
 #, python-format
@@ -1221,48 +1221,48 @@ msgid ""
 "%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
 "\">DEBUG=True</a> is in your settings file and you have not configured any "
 "URLs."
-msgstr ""
+msgstr "این صفحه را مشاهده می‌کنید زیرا <a href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener\">DEBUG=True</a> در فایل تنظیمات شما وجود دارد و هیچ URLی را پیکربندی نکرده‌اید."
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
 msgid "Django Documentation"
-msgstr ""
+msgstr "مستندات Django"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
 msgid "Topics, references, &amp; how-to’s"
-msgstr ""
+msgstr "مباحث، مراجع، &amp; راهنماها"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
 msgid "Tutorial: A Polling App"
-msgstr ""
+msgstr "آموزش: یک برنامه نظرسنجی"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
 msgid "Get started with Django"
-msgstr ""
+msgstr "شروع به کار با Django"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
 msgid "Django Community"
-msgstr ""
+msgstr "انجمن Django"
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
 msgid "Connect, get help, or contribute"
-msgstr ""
+msgstr "ارتباط برقرار کنید، کمک بگیرید یا مشارکت کنید"
 
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1394
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1447
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1451
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1455
 msgid "No response body"
-msgstr ""
+msgstr "بدنه پاسخ وجود ندارد"
 
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1419
 #: .\venv\Lib\site-packages\drf_spectacular\openapi.py:1473
 msgid "Unspecified response body"
-msgstr ""
+msgstr "بدنه پاسخ نامشخص"
 
 #: .\venv\Lib\site-packages\drf_spectacular\plumbing.py:487
 #, python-format
 msgid "Token-based authentication with required prefix \"%s\""
-msgstr ""
+msgstr "احراز هویت مبتنی بر توکن با پیشوند الزامی \"%s\""
 
 #: .\venv\Lib\site-packages\drf_spectacular\views.py:45
 msgid ""
@@ -1273,4 +1273,4 @@ msgid ""
 "    - YAML: application/vnd.oai.openapi\n"
 "    - JSON: application/vnd.oai.openapi+json\n"
 "    "
-msgstr ""
+msgstr "\n    طرح OpenApi3 برای این API. فرمت را می‌توان از طریق مذاکره محتوا انتخاب کرد.\n\n    - YAML: application/vnd.oai.openapi\n    - JSON: application/vnd.oai.openapi+json\n    "
