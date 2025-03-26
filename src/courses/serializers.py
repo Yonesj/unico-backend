@@ -36,5 +36,5 @@ class PlanSerializer(serializers.ModelSerializer):
 
 
 class GolestanRequestSerializer(serializers.Serializer):
-    student_id = serializers.IntegerField()
+    student_id = serializers.CharField()
     password = serializers.CharField()
