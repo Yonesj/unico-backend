@@ -21,7 +21,7 @@ def solve_and_handle(img_base64):
         print("خطا: ", error_message)
         return None
 
-class GetListCoursesView(GenericAPIView):
+class CourseRetrieveView(GenericAPIView):
     """
     Get student courses list from Golestan.
     """
