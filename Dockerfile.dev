@@ -10,6 +10,8 @@ RUN apt-get update && \
 # Copy and install dependencies
 COPY requirements/ requirements/
 RUN pip install --no-cache-dir -r requirements/development.txt
+RUN python -m playwright install chromium
+
 
 # Copy application files
 COPY . .

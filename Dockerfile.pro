@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements/production.txt && \
     pip install --no-cache-dir -r requirements/development.txt
 
+RUN python -m playwright install chromium
 
 FROM python:3.12-slim
 
