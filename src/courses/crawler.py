@@ -42,7 +42,6 @@ class Crawler:
             pass_field = form_body_frame.locator('//*[@id="F80401"]')
             captcha_field = form_body_frame.locator('//*[@id="F51701"]')
             captcha_text = self.solve_and_handle(base64_string)
-            return captcha_text
             username_field.fill(username)
             pass_field.fill(password)
             captcha_field.fill(captcha_text)
