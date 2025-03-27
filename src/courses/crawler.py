@@ -1,9 +1,5 @@
 import base64
-
 from playwright.sync_api import sync_playwright
-
-from .serializers import GolestanRequestSerializer
-from .student_courses_data import StudentCoursesData
 from .captcha_solver import captcha_solver
 
 
@@ -120,23 +116,31 @@ class Crawler:
             student_course_data_list = []
             for course in all_data:
                 course_data = course.split('\t')
-                student_id = course_data[0]
-                full_name = course_data[1]
                 course_code = course_data[3]
                 course_name = course_data[4]
                 theory = course_data[5]
                 practical = course_data[6]
                 capacity = course_data[7]
-                gender = course_data[8]
-                professor = course_data[9]
-                class_day = course_data[10]
-                class_location = course_data[11]
-                prerequisites = course_data[12:-1]
+                gender = course_data[8]  # use detect gender method in deserializers
+                professor = course_data[9].strip()
+                class_day = course_data[10]  # use detect class day method in deserializers
+                class_location = course_data[11].strip()
+                prerequisites = course_data[12:-1]  # use detect pre need and co need day method in deserializers
                 notes = course_data[-1]
-                student_course_data = StudentCoursesData(student_id, full_name, course_code, course_name, theory,
-                                                         practical, capacity, gender, professor, class_day,
-                                                         class_location, prerequisites, notes)
-                student_course_data_list.append(student_course_data.to_dict())
+                student_course_data = {
+                    'course_code': course_code,
+                    'course_name': course_name,
+                    'theory': theory,
+                    'practical': practical,
+                    'capacity': capacity,
+                    'gender': gender,
+                    'professor': professor,
+                    'class_day': class_day,
+                    'class_location': class_location,
+                    'prerequisites': prerequisites,
+                    'notes': notes
+                }
+                student_course_data_list.append(student_course_data)
         finally:
             context.close()
             browser.close()
