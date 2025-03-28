@@ -19,31 +19,13 @@ def determine_gender(s):
 
 
 def parse_prerequisites(prerequisites):
-    pre_needs = []
-    co_needs = []
-
-    temp = None
+    cleaned_list = []
     for item in prerequisites:
         item = item.strip()
-
-        if item.startswith("پيش نياز"):
-            temp = pre_needs
-        elif item.startswith("هم نياز"):
-            temp = co_needs
-        elif item.startswith("معادل"):
-            temp = None  # حذف موارد معادل
-        elif temp is not None:
-            item = item.replace("\nمعادل", "").strip()
-            if "\nهم نياز" in item:
-                course, _ = item.split("\nهم نياز", 1)
-                course = course.strip()
-                pre_needs.append(course)
-                co_needs.append(course)
-            else:
-                temp.append(item)
-
-    return {"pre_needs": pre_needs, "co_needs": co_needs}
-
+        item = item.replace("\n", " ").strip()
+        if item:
+            cleaned_list.append(item)
+    return cleaned_list
 
 """Extracts class days, times, and exam date/time from the provided string."""
 
@@ -58,28 +40,27 @@ def time_decomposition(time_str):
 
 def determine_day(s):
     days = {
-        'ش': 0,
-        'ي': 1,
-        'د': 2,
-        'س': 3,
-        'چ': 4,
-        'پ': 5
+        'ش': WeekDay.SATURDAY,
+        'ي': WeekDay.SUNDAY,
+        'د': WeekDay.MONDAY,
+        'س': WeekDay.TUESDAY,
+        'چ': WeekDay.WEDNESDAY,
+        'پ': WeekDay.THURSDAY,
+        'ج': WeekDay.FRIDAY
     }
     return days.get(s[0], -1)
 
 
-def times_division(class_day):
+def extract_class_exam_info(class_day):
     arr = class_day.strip().split("\n")
-    result = {
-        "times": [],
-        "exam_date": {"day": -1, "date": "0", "start": -1, "end": -1}
-    }
+    class_sessions = []
+    exam_info = None
 
     for item in arr:
         if not item:
             continue
 
-        if item[0] == 'ا':
+        if item.startswith("ا"):
             match = re.search(r'امتحان\((\d{4})\.(\d{2})\.(\d{2})\)', item)
             if match:
                 date = f"{match.group(1)}/{match.group(2)}/{match.group(3)}"
@@ -89,40 +70,29 @@ def times_division(class_day):
                 date, day_of_week = "0", -1
 
             times = time_decomposition(item[-11:])
-            result["exam_date"] = {
-                "start": times["start"],
-                "end": times["end"],
+            exam_info = {
                 "date": date,
-                "day": day_of_week
+                "day": day_of_week,
+                "start": times["start"],
+                "end": times["end"]
             }
             continue
 
         record = {"isExerciseSolving": True}
         temp = item.split("): ")[-1]
-        print(temp + "\n")
         index = temp.find('-')
 
         if index == -1:
             continue
 
-        times = time_decomposition(temp[index - 5:index + 6])
+        times = time_decomposition(temp[index - 5:index + 6])  # استخراج ساعت کلاس
         record["day"] = determine_day(temp)
         record["start"] = times["start"]
         record["end"] = times["end"]
-        result["times"].append(record)
+        class_sessions.append(record)
 
-    return result
+    return class_sessions, exam_info
 
-
-DAY_MAPPING = {
-    "شنبه": WeekDay.SATURDAY,
-    "يك شنبه": WeekDay.SUNDAY,
-    "دوشنبه": WeekDay.MONDAY,
-    "سه شنبه": WeekDay.TUESDAY,
-    "چهارشنبه": WeekDay.WEDNESDAY,
-    "پنج شنبه": WeekDay.THURSDAY,
-    "جمعه": WeekDay.FRIDAY,
-}
 
 class CourseRawDataDeserializer(serializers.Serializer):
     course_code = serializers.CharField()
@@ -150,7 +120,7 @@ class CourseRawDataDeserializer(serializers.Serializer):
         return determine_gender(value.strip())
 
     def clean_prerequisites(self, value):
-        return [item.strip() for item in value if item.strip()]
+        return parse_prerequisites(value)
 
     def clean_class_day(self, value):
         """
@@ -158,38 +128,39 @@ class CourseRawDataDeserializer(serializers.Serializer):
           - A list of class sessions
           - Exam information as a dict (or None if absent)
         """
-        class_sessions = []
-        exam_info = None
-
-        for line in value.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-
-            # Parse class session
-            match = re.search(r"درس\(ت\):\s*(\S+)\s+(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
-            if match:
-                day_raw = match.group(1)
-                start_hour = int(match.group(2))
-                end_hour = int(match.group(3))
-                day = DAY_MAPPING.get(day_raw, WeekDay.NONE)
-
-                class_sessions.append({
-                    "day": day,
-                    "start": start_hour,
-                    "end": end_hour
-                })
-
-            # Parse exam info
-            match = re.search(r"امتحان\(([\d\.]+)\).*?(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
-            if match:
-                exam_info = {
-                    "date": match.group(1),
-                    "start": int(match.group(2)),
-                    "end": int(match.group(3))
-                }
-
-        return class_sessions, exam_info
+        return extract_class_exam_info(value)
+        # class_sessions = []
+        # exam_info = None
+        #
+        # for line in value.splitlines():
+        #     line = line.strip()
+        #     if not line:
+        #         continue
+        #
+        #     # Parse class session
+        #     match = re.search(r"درس\(ت\):\s*(\S+)\s+(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
+        #     if match:
+        #         day_raw = match.group(1)
+        #         start_hour = int(match.group(2))
+        #         end_hour = int(match.group(3))
+        #         day = DAY_MAPPING.get(day_raw, WeekDay.NONE)
+        #
+        #         class_sessions.append({
+        #             "day": day,
+        #             "start": start_hour,
+        #             "end": end_hour
+        #         })
+        #
+        #     # Parse exam info
+        #     match = re.search(r"امتحان\(([\d\.]+)\).*?(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
+        #     if match:
+        #         exam_info = {
+        #             "date": match.group(1),
+        #             "start": int(match.group(2)),
+        #             "end": int(match.group(3))
+        #         }
+        #
+        # return class_sessions, exam_info
 
     def to_internal_value(self, data):
         """
