@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from .deserializers import CourseRawDataDeserializer
 from .serializers import GolestanRequestSerializer
 from .crawler import Crawler
 
@@ -30,7 +31,18 @@ class CourseRetrieveView(GenericAPIView):
         finally:
             crawler.close()
 
-        # Here, courses is a list of dictionaries. In a real app you would pass this
-        # to an output serializer (like CourseSerializer) to format the response.
-        # For now, we return it directly.
-        return Response({"courses": courses}, status=status.HTTP_200_OK)
+        cleaned_courses = []
+        errors = []
+
+        for course_data in courses:
+            course_serializer = CourseRawDataDeserializer(data=course_data)
+            if course_serializer.is_valid():
+                course = course_serializer.save()
+                cleaned_courses.append(course_serializer.data)
+            else:
+                errors.append(course_serializer.errors)
+
+        if errors:
+            return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"courses": cleaned_courses}, status=status.HTTP_200_OK)
