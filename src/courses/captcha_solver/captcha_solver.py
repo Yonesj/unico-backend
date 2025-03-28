@@ -111,10 +111,5 @@ def main(img=None):
 
 
 def solve(img_base64):
-    try:
-        img = Image.open(BytesIO(base64.b64decode(img_base64))).resize((140, 50))
-        return {"captcha": main(img), "status": "OK"}
-    except Exception as e:
-        return {"status": "ERROR", "message": str(e)}
-
-
+    img = Image.open(BytesIO(base64.b64decode(img_base64))).resize((140, 50))
+    return main(img)
