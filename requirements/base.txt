@@ -24,6 +24,7 @@ sqlparse==0.5.3
 tzdata==2025.1
 urllib3==2.3.0
 drf-spectacular==0.28.0  # remove this line
+jdatetime==5.2.0
 
 # [capcha solver dependencies]
 numpy==2.2.4

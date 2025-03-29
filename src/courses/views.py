@@ -36,6 +36,7 @@ class CourseRetrieveView(GenericAPIView):
 
         for course_data in courses:
             course_serializer = CourseRawDataDeserializer(data=course_data)
+
             if course_serializer.is_valid():
                 course = course_serializer.save()
                 cleaned_courses.append(course_serializer.data)

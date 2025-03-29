@@ -1,7 +1,6 @@
 import re
 from rest_framework import serializers
 from .models import Course, ClassSession, Exam, Gender, WeekDay
-
 import jdatetime
 
 
@@ -20,20 +19,32 @@ def determine_gender(s):
 
 def parse_prerequisites(prerequisites):
     cleaned_list = []
+
+    if not prerequisites:
+        cleaned_list.append("مقدار پیش‌فرض")
+
     for item in prerequisites:
         item = item.strip()
         item = item.replace("\n", " ").strip()
         if item:
             cleaned_list.append(item)
+
+    if not cleaned_list:
+        cleaned_list.append("مقدار پیش‌فرض")
+
     return cleaned_list
 
-"""Extracts class days, times, and exam date/time from the provided string."""
 
+"""Extracts class days, times, and exam date/time from the provided string."""
 
 def time_decomposition(time_str):
     try:
         start, end = map(str.strip, time_str.split('-'))
-        return {"start": start, "end": end}
+
+        start_hour = start.split(':')[0]
+        end_hour = end.split(':')[0]
+
+        return {"start": start_hour, "end": end_hour}
     except ValueError:
         return {"start": -1, "end": -1}
 
@@ -48,7 +59,22 @@ def determine_day(s):
         'پ': WeekDay.THURSDAY,
         'ج': WeekDay.FRIDAY
     }
-    return days.get(s[0], -1)
+    day = days.get(s[0], WeekDay.NONE)
+    return day[1] if day != WeekDay.NONE else -1
+
+
+def determine_exam_day(s):
+    days = {
+        '1': WeekDay.SATURDAY,
+        '2': WeekDay.SUNDAY,
+        '3': WeekDay.MONDAY,
+        '4': WeekDay.TUESDAY,
+        '5': WeekDay.WEDNESDAY,
+        '6': WeekDay.THURSDAY,
+        '7': WeekDay.FRIDAY
+    }
+    day = days.get(s, WeekDay.NONE)
+    return day[1] if day != WeekDay.NONE else -1
 
 
 def extract_class_exam_info(class_day):
@@ -72,7 +98,7 @@ def extract_class_exam_info(class_day):
             times = time_decomposition(item[-11:])
             exam_info = {
                 "date": date,
-                "day": day_of_week,
+                "day": determine_exam_day(str(day_of_week)),
                 "start": times["start"],
                 "end": times["end"]
             }
@@ -85,10 +111,15 @@ def extract_class_exam_info(class_day):
         if index == -1:
             continue
 
-        times = time_decomposition(temp[index - 5:index + 6])  # استخراج ساعت کلاس
+        times = time_decomposition(temp[index - 5:index + 6])
         record["day"] = determine_day(temp)
         record["start"] = times["start"]
         record["end"] = times["end"]
+        if item[0] == 'د':
+            record['isExerciseSolving'] = False
+        if 'مکان: ' in temp:
+            record['location'] = temp.split('مکان: ').pop()
+
         class_sessions.append(record)
 
     return class_sessions, exam_info
@@ -102,9 +133,9 @@ class CourseRawDataDeserializer(serializers.Serializer):
     capacity = serializers.CharField()
     gender = serializers.CharField()
     professor_name = serializers.CharField()
-    class_day = serializers.CharField(allow_blank=True)
+    classes = serializers.CharField(allow_blank=True)
     class_location = serializers.CharField(allow_blank=True)
-    prerequisites = serializers.ListField(child=serializers.CharField(), allow_empty=True)
+    prerequisites = serializers.CharField(allow_blank=True, required=False)
     notes = serializers.CharField(allow_blank=True)
 
     def clean_string_value(self, value):
@@ -129,38 +160,6 @@ class CourseRawDataDeserializer(serializers.Serializer):
           - Exam information as a dict (or None if absent)
         """
         return extract_class_exam_info(value)
-        # class_sessions = []
-        # exam_info = None
-        #
-        # for line in value.splitlines():
-        #     line = line.strip()
-        #     if not line:
-        #         continue
-        #
-        #     # Parse class session
-        #     match = re.search(r"درس\(ت\):\s*(\S+)\s+(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
-        #     if match:
-        #         day_raw = match.group(1)
-        #         start_hour = int(match.group(2))
-        #         end_hour = int(match.group(3))
-        #         day = DAY_MAPPING.get(day_raw, WeekDay.NONE)
-        #
-        #         class_sessions.append({
-        #             "day": day,
-        #             "start": start_hour,
-        #             "end": end_hour
-        #         })
-        #
-        #     # Parse exam info
-        #     match = re.search(r"امتحان\(([\d\.]+)\).*?(\d{1,2}):\d{2}-(\d{1,2}):\d{2}", line)
-        #     if match:
-        #         exam_info = {
-        #             "date": match.group(1),
-        #             "start": int(match.group(2)),
-        #             "end": int(match.group(3))
-        #         }
-        #
-        # return class_sessions, exam_info
 
     def to_internal_value(self, data):
         """
@@ -175,12 +174,12 @@ class CourseRawDataDeserializer(serializers.Serializer):
         ret["gender"] = self.clean_gender(ret["gender"])
         ret["professor_name"] = self.clean_string_value(ret["professor_name"])
         ret["class_location"] = self.clean_string_value(ret["class_location"])
-        ret["prerequisites"] = self.clean_prerequisites(ret["prerequisites"])
+        ret["prerequisites"] = self.clean_prerequisites(ret.get("prerequisites", []))
         ret["notes"] = self.clean_string_value(ret["notes"])
 
         # Extract class sessions and exam info
-        class_sessions, exam_info = self.clean_class_day(ret["class_day"])
-        ret["class_sessions"] = class_sessions
+        classes, exam_info = self.clean_class_day(ret["classes"])
+        ret["classes"] = classes
         ret["exam_info"] = exam_info
 
         return ret
@@ -191,7 +190,7 @@ class CourseRawDataDeserializer(serializers.Serializer):
         Also update or create the related ClassSession and Exam objects.
         """
         # Extract nested values
-        class_sessions = validated_data.pop("class_sessions")
+        classes = validated_data.pop("classes")
         exam_info = validated_data.pop("exam_info")
 
         # Use update_or_create: note that .save() on the model uses the course_code to generate id.
@@ -203,7 +202,7 @@ class CourseRawDataDeserializer(serializers.Serializer):
                 "practical": validated_data["practical"],
                 "capacity": validated_data["capacity"],
                 "gender": validated_data["gender"],
-                "professor_name": validated_data["professor"],
+                "professor_name": validated_data["professor_name"],
                 "class_location": validated_data["class_location"],
                 "prerequisites": validated_data["prerequisites"],
                 "notes": validated_data["notes"],
@@ -212,7 +211,7 @@ class CourseRawDataDeserializer(serializers.Serializer):
 
         # Clear previous class sessions and re-create them.
         course.classes.all().delete()
-        for session in class_sessions:
+        for session in classes:
             ClassSession.objects.create(
                 course=course,
                 day=session["day"],

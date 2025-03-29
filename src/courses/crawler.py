@@ -114,8 +114,8 @@ class Crawler:
                 'practical': course_data[6],
                 'capacity': course_data[7],
                 'gender': course_data[8],
-                'professor': course_data[9].strip(),
-                'class_day': course_data[10],
+                'professor_name': course_data[9].strip(),
+                'classes': course_data[10],
                 'class_location': course_data[11].strip(),
                 'prerequisites': course_data[12:-1],
                 'notes': course_data[-1]
