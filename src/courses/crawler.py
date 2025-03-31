@@ -70,8 +70,7 @@ class Crawler:
     def search_courses(self):
         """ Search for available courses using code 212. """
         iframe_locator2 = self.page.frame_locator("iframe#Faci2")
-        form_body_frame2 = iframe_locator2.frame_locator("frame[name='Master']").frame_locator(
-            "frame[name='Form_Body']")
+        form_body_frame2 = iframe_locator2.frame_locator("frame[name='Master']").frame_locator("frame[name='Form_Body']")
 
         search_button = form_body_frame2.locator('//*[@id="F20851"]')
         search_button.wait_for(state="visible")
@@ -114,9 +113,9 @@ class Crawler:
                 'practical': course_data[6],
                 'capacity': course_data[7],
                 'gender': course_data[8],
-                'professor_name': course_data[9].strip(),
+                'professor_name': course_data[9],
                 'classes': course_data[10],
-                'class_location': course_data[11].strip(),
+                'class_location': course_data[11],
                 'prerequisites': course_data[12:-1],
                 'notes': course_data[-1]
             })
