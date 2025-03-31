@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import serializers
 
 from src.courses.models import Course, ClassSession, Exam, Plan
@@ -15,7 +16,7 @@ class ExamSerializer(serializers.ModelSerializer):
         fields = ['date', 'start', 'end']
 
 
-class CourseSerializer(serializers.ModelSerializer):
+class CourseModelSerializer(serializers.ModelSerializer):
     classes = ClassSessionSerializer(many=True, read_only=True)
     exam = ExamSerializer(read_only=True)
 
@@ -26,9 +27,24 @@ class CourseSerializer(serializers.ModelSerializer):
             'class_location', 'prerequisites', 'notes', 'classes', 'exam'
         ]
 
+class CourseOutputSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=False)
+    course_code = serializers.CharField()
+    course_name = serializers.CharField()
+    theory = serializers.CharField()
+    practical = serializers.CharField()
+    capacity = serializers.IntegerField()
+    gender = serializers.CharField()
+    professor_name = serializers.CharField()
+    class_location = serializers.CharField(required=False, allow_blank=True)
+    prerequisites = serializers.CharField(required=False, allow_blank=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
+    classes = ClassSessionSerializer(many=True)
+    exam = ExamSerializer(required=False, allow_null=True)
+
 
 class PlanSerializer(serializers.ModelSerializer):
-    courses = CourseSerializer(many=True, read_only=True)
+    courses = CourseModelSerializer(many=True, read_only=True)
 
     class Meta:
         model = Plan
