@@ -1,10 +1,12 @@
+from django.db import transaction
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .deserializers import CourseRawDataDeserializer
-from .serializers import GolestanRequestSerializer
+from src.utill.cleaners import CrawlerRawDataCleaner
+from .serializers import GolestanRequestSerializer, CourseOutputSerializer
 from .crawler import Crawler
+from .services import bulk_save_courses, bulk_update_class_sessions
 
 
 class CourseRetrieveView(GenericAPIView):
@@ -14,7 +16,7 @@ class CourseRetrieveView(GenericAPIView):
     serializer_class = GolestanRequestSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = GolestanRequestSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         username = serializer.validated_data['student_id']
         password = serializer.validated_data['password']
@@ -27,23 +29,20 @@ class CourseRetrieveView(GenericAPIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             # Catch-all for any other unexpected errors
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"detail": "internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         finally:
             crawler.close()
 
-        cleaned_courses = []
-        errors = []
+        cleaner = CrawlerRawDataCleaner()
+        cleaned_data_list = [cleaner.clean(course_data) for course_data in courses]
+        serialized_courses = CourseOutputSerializer(data=cleaned_data_list, many=True)
 
-        for course_data in courses:
-            course_serializer = CourseRawDataDeserializer(data=course_data)
+        if serialized_courses.is_valid():
+            with transaction.atomic():
+                saved_courses = bulk_save_courses(cleaned_data_list)
+                course_map = {c.id: c for c in saved_courses}
+                bulk_update_class_sessions(course_map, cleaned_data_list)
 
-            if course_serializer.is_valid():
-                course = course_serializer.save()
-                cleaned_courses.append(course_serializer.data)
-            else:
-                errors.append(course_serializer.errors)
+            return Response({"courses": serialized_courses.validated_data}, status=status.HTTP_200_OK)
 
-        if errors:
-            return Response({"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response({"courses": cleaned_courses}, status=status.HTTP_200_OK)
+        return Response({"errors": serialized_courses.errors}, status=status.HTTP_400_BAD_REQUEST)
