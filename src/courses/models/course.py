@@ -1,8 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
-
-User = get_user_model()
 
 class Gender(models.TextChoices):
     MALE = 'M', 'Male'
@@ -40,24 +37,3 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.course_name} ({self.course_code})"
-
-
-class ClassSession(models.Model):
-    course = models.ForeignKey(Course, related_name="classes", on_delete=models.CASCADE)
-    day = models.CharField(max_length=3, choices=WeekDay, default=WeekDay.NONE)
-    start = models.PositiveSmallIntegerField()
-    end = models.PositiveSmallIntegerField()
-
-
-class Exam(models.Model):
-    course = models.OneToOneField(Course, related_name="exam", on_delete=models.CASCADE)
-    date = models.CharField(max_length=31)
-    start = models.PositiveSmallIntegerField()
-    end = models.PositiveSmallIntegerField()
-
-
-class Plan(models.Model):
-    name = models.CharField(max_length=255, null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="plans")
-    courses = models.ManyToManyField(Course, related_name="+")
-    created_at = models.DateTimeField(auto_now_add=True)
