@@ -60,7 +60,7 @@ def extract_class_sessions_and_exam_info(class_day):
             }
 
         else:
-            record = {"isExerciseSolving": True}
+            record = {"is_problem_solving": True}
             # Example: "درس(ت): سه شنبه 10:00-12:00"
             parts = item.split("): ")
 
@@ -74,7 +74,7 @@ def extract_class_sessions_and_exam_info(class_day):
             record["day"] = determine_day(temp)
 
             if item.startswith("درس"):
-                record["isExerciseSolving"] = False
+                record["is_problem_solving"] = False
 
             class_sessions.append(record)
 
