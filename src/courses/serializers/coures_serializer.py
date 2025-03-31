@@ -1,19 +1,7 @@
-from django.db import transaction
 from rest_framework import serializers
-
-from src.courses.models import Course, ClassSession, Exam, Plan
-
-
-class ClassSessionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ClassSession
-        fields = ['day', 'start', 'end']
-
-
-class ExamSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Exam
-        fields = ['date', 'start', 'end']
+from src.courses.models import Course
+from .exam_serializer import ExamSerializer
+from .class_session_serializer import ClassSessionSerializer
 
 
 class CourseModelSerializer(serializers.ModelSerializer):
@@ -26,6 +14,7 @@ class CourseModelSerializer(serializers.ModelSerializer):
             'course_code', 'course_name', 'theory', 'practical', 'capacity', 'gender', 'professor_name',
             'class_location', 'prerequisites', 'notes', 'classes', 'exam'
         ]
+
 
 class CourseOutputSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=False)
@@ -41,16 +30,3 @@ class CourseOutputSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
     classes = ClassSessionSerializer(many=True)
     exam = ExamSerializer(required=False, allow_null=True)
-
-
-class PlanSerializer(serializers.ModelSerializer):
-    courses = CourseModelSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Plan
-        fields = ['name', 'courses']
-
-
-class GolestanRequestSerializer(serializers.Serializer):
-    student_id = serializers.CharField()
-    password = serializers.CharField()
