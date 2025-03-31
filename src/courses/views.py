@@ -3,10 +3,11 @@ from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from src.utill.serializers import GolestanRequestSerializer
 from src.utill.cleaners import CrawlerRawDataCleaner
-from .serializers import GolestanRequestSerializer, CourseOutputSerializer
+from .serializers import CourseOutputSerializer
 from .crawler import Crawler
-from .services import bulk_save_courses, bulk_update_class_sessions
+from .services import bulk_save_courses, bulk_update_class_sessions, bulk_save_exams
 
 
 class CourseRetrieveView(GenericAPIView):
@@ -42,6 +43,7 @@ class CourseRetrieveView(GenericAPIView):
                 saved_courses = bulk_save_courses(cleaned_data_list)
                 course_map = {c.id: c for c in saved_courses}
                 bulk_update_class_sessions(course_map, cleaned_data_list)
+                bulk_save_exams(cleaned_data_list, course_map)
 
             return Response({"courses": serialized_courses.validated_data}, status=status.HTTP_200_OK)
 
