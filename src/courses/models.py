@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
 
 
@@ -26,13 +25,13 @@ class Course(models.Model):
     id = models.BigAutoField(primary_key=True)
     course_code = models.CharField(max_length=20, unique=True)
     course_name = models.CharField(max_length=255)
-    theory = models.PositiveSmallIntegerField()
-    practical = models.PositiveSmallIntegerField()
-    capacity = models.PositiveSmallIntegerField()
+    theory = models.CharField(max_length=3)
+    practical = models.CharField(max_length=3)
+    capacity = models.PositiveIntegerField()
     gender = models.CharField(max_length=1, choices=Gender, default=Gender.BOTH)
     professor_name = models.CharField(max_length=255)
-    class_location = models.CharField(max_length=255, null=True, blank=True)
-    prerequisites = ArrayField(models.CharField(max_length=255), blank=True, default=list)
+    class_location = models.CharField(max_length=255, blank=True, default="")
+    prerequisites = models.TextField(blank=True, default="")
     notes = models.TextField(blank=True, default="")
 
     def save(self, *args, **kwargs):
