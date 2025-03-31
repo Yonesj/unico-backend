@@ -1,6 +1,5 @@
 import base64
 import os
-from time import time
 from PIL import Image
 from io import BytesIO
 import numpy as np
@@ -64,10 +63,6 @@ def main(img=None):
     file_path = os.path.join(BASE_DIR, "edu.pkl")
     clf = load(file_path)
 
-    id = str(time())
-
-    start_time = time()
-
     src_img = img.convert("RGB")
     img = img.convert('L')
 
@@ -105,8 +100,6 @@ def main(img=None):
                 arr.append(np.array(pil_img).reshape((1024, -1)).flatten())
 
     prediction = ''.join(clf.predict(np.array(arr)))
-    print(time() - start_time)
-    print(prediction)
     return prediction
 
 
