@@ -1,15 +1,17 @@
 from django.db import transaction
-from rest_framework import status
 from rest_framework.generics import GenericAPIView
+from rest_framework import status
 from rest_framework.response import Response
 
 from src.utill.serializers import GolestanRequestSerializer
 from src.utill.cleaners import CrawlerRawDataCleaner
-from .serializers import CourseOutputSerializer
-from .crawler import Crawler
-from .services import bulk_save_courses, bulk_update_class_sessions, bulk_save_exams
+from src.courses.serializers import CourseOutputSerializer
+from src.courses.crawler import Crawler
+from src.courses.services import bulk_save_courses, bulk_save_class_sessions, bulk_save_exams
+from src.courses.schemas import course_retrieve_view_schema
 
 
+@course_retrieve_view_schema
 class CourseRetrieveView(GenericAPIView):
     """
     Get student courses list from Golestan.
@@ -26,10 +28,8 @@ class CourseRetrieveView(GenericAPIView):
         try:
             courses = crawler.fetch_student_courses(username, password)
         except ValueError as e:
-            # This catches login failure after max retries (or other value errors)
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            # Catch-all for any other unexpected errors
             return Response({"detail": "internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         finally:
             crawler.close()
@@ -42,7 +42,7 @@ class CourseRetrieveView(GenericAPIView):
             with transaction.atomic():
                 saved_courses = bulk_save_courses(cleaned_data_list)
                 course_map = {c.id: c for c in saved_courses}
-                bulk_update_class_sessions(course_map, cleaned_data_list)
+                bulk_save_class_sessions(course_map, cleaned_data_list)
                 bulk_save_exams(cleaned_data_list, course_map)
 
             return Response({"courses": serialized_courses.validated_data}, status=status.HTTP_200_OK)
