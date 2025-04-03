@@ -6,6 +6,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('src.accounts.urls')),
+    path('course-scheduler/', include('src.courses.urls')),
 ]
 
 if settings.DEBUG:
