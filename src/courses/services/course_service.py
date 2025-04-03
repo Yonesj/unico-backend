@@ -13,23 +13,27 @@ def bulk_save_courses(cleaned_courses):
 
     courses_to_create = []
     courses_to_update = []
+    valid_fields = ["id", "course_code", "course_name", "theory", "practical", "capacity", "gender", "professor_name",
+                    "class_location", "prerequisites", "notes", ]
 
     for data in cleaned_courses:
         course_id = data["id"]
+        course_data = {k: v for k, v in data.items() if k in valid_fields}
+
         if course_id in existing_courses_map:
             course = existing_courses_map[course_id]
-            course.course_name = data["course_name"]
-            course.theory = data["theory"]
-            course.practical = data["practical"]
-            course.capacity = data["capacity"]
-            course.gender = data["gender"]
-            course.professor_name = data["professor_name"]
-            course.class_location = data["class_location"]
-            course.prerequisites = data["prerequisites"]
-            course.notes = data["notes"]
+            course.course_name = course_data["course_name"]
+            course.theory = course_data["theory"]
+            course.practical = course_data["practical"]
+            course.capacity = course_data["capacity"]
+            course.gender = course_data["gender"]
+            course.professor_name = course_data["professor_name"]
+            course.class_location = course_data["class_location"]
+            course.prerequisites = course_data["prerequisites"]
+            course.notes = course_data["notes"]
             courses_to_update.append(course)
         else:
-            courses_to_create.append(Course(**data))
+            courses_to_create.append(Course(**course_data))
 
     with transaction.atomic():
         if courses_to_create:
