@@ -41,6 +41,7 @@ class PlanUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
         fields = ['id', 'name', 'courses']
+        read_only_fields = ['id']
 
     def update(self, instance, validated_data):
         courses = validated_data.pop('courses', None)
@@ -55,7 +56,7 @@ class PlanRevokeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
         fields = ['id', 'share_uuid']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'share_uuid']
 
     def update(self, instance, validated_data):
         instance.share_uuid = uuid4()

@@ -49,7 +49,7 @@ class PlanRetrieveView(RetrieveAPIView):
 
 @plan_revoke_view_schema
 class PlanRevokeAPIView(UpdateAPIView):
-    http_method_names = ['put', 'patch']
+    http_method_names = ['patch']
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     serializer_class = PlanRevokeSerializer
     queryset = Plan.objects.all()
