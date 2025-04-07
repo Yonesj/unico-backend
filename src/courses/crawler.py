@@ -95,6 +95,7 @@ class Crawler:
         commander = iframe_locator3.frame_locator("frame[name='Commander']")
 
         with self.page.expect_popup() as new_tab_info:
+            self.page.wait_for_timeout(100)
             commander.locator('//*[@id="ExToEx"]').click()
         course_page = new_tab_info.value
 
