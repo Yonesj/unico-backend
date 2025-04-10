@@ -17,7 +17,7 @@ plan_list_create_view_schema = extend_schema_view(
                         value=[
                             {
                                 "id": 1,
-                                "name": "My Plan",
+                                "username": "yabal",
                                 "share_uuid": "550e8400-e29b-41d4-a716-446655440000",
                                 "courses": [
                                     {
@@ -58,7 +58,6 @@ plan_list_create_view_schema = extend_schema_view(
                         name="POST Response Example",
                         value={
                             "id": 2,
-                            "name": "New Plan",
                             "share_uuid": "123e4567-e89b-12d3-a456-426614174000",
                             "courses": [12, 34]
                         },
@@ -87,7 +86,7 @@ plan_detail_view_schema = extend_schema_view(
                         name="GET Response Example",
                         value={
                             "id": 1,
-                            "name": "My Plan",
+                            "username": "yabal",
                             "share_uuid": "550e8400-e29b-41d4-a716-446655440000",
                             "courses": [
                                 {
@@ -129,7 +128,6 @@ plan_detail_view_schema = extend_schema_view(
                         name="Update Response Example",
                         value={
                             "id": 1,
-                            "name": "Updated Plan Name",
                             "share_uuid": "550e8400-e29b-41d4-a716-446655440000",
                             "courses": [
                                 {
@@ -215,7 +213,7 @@ plan_retrieve_shared_view_schema = extend_schema(
                     name="Successful Response",
                     value={
                         "id": 1,
-                        "name": "Shared Plan Example",
+                        "username": "yabal",
                         "share_uuid": "550e8400-e29b-41d4-a716-446655440000",
                         "courses": [
                             {
