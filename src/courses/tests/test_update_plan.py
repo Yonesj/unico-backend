@@ -21,6 +21,7 @@ class TestUpdatePlanView:
     def auth_client(self, user):
         client = APIClient()
         client.force_authenticate(user=user)
+        client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
         return client
 
     @pytest.fixture
@@ -36,13 +37,12 @@ class TestUpdatePlanView:
         )
     @pytest.fixture
     def plan(self, user):
-        return Plan.objects.create(name='Test Plan', user=user)
+        return Plan.objects.create(user=user)
 
     def test_update_plan_name_and_courses(self, auth_client, plan, course):
         cache.clear()
         url = reverse('plan-detail', args=[plan.id])
         data = {
-            "name": "Updated Name",
             "courses": [course.id]
         }
 
@@ -50,14 +50,12 @@ class TestUpdatePlanView:
         plan.refresh_from_db()
 
         assert response.status_code == 200
-        assert plan.name == "Updated Name"
         assert list(plan.courses.all()) == [course]
 
     def test_update_plan_invalid_course(self, auth_client, plan):
         cache.clear()
         url = reverse('plan-detail', args=[plan.id])
         data = {
-            "name": "New Name",
             "courses": [9999] 
         }
         response = auth_client.put(url, data, format='json')

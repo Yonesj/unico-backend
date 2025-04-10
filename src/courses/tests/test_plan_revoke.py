@@ -24,11 +24,13 @@ class TestPlanRevokeView:
 
     @pytest.fixture
     def client(self):
-        return APIClient()
+        client = APIClient()
+        client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
+        return client
 
     @pytest.fixture
     def plan(self, user):
-        return Plan.objects.create(name="Test Plan", user=user)
+        return Plan.objects.create(user=user)
 
     def test_successful_revoke_by_owner(self, client, user, plan):
         cache.clear()

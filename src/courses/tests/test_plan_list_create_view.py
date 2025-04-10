@@ -20,6 +20,7 @@ class TestPlanListCreateView:
     def auth_client(self, user):
         client = APIClient()
         client.force_authenticate(user=user)
+        client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
         return client
 
     @pytest.fixture
@@ -47,7 +48,6 @@ class TestPlanListCreateView:
     def test_create_plan_successfully(self, auth_client, url, course):
         cache.clear()
         data = {
-            "name": "My Study Plan",
             "courses": [course.id]
         }
         response = auth_client.post(url, data, format='json')
@@ -55,7 +55,6 @@ class TestPlanListCreateView:
         assert response.status_code == status.HTTP_201_CREATED
         assert Plan.objects.count() == 1
         plan = Plan.objects.first()
-        assert plan.name == "My Study Plan"
         assert course in plan.courses.all()
 
     def test_get_user_plans_only(self, auth_client, user, url):
@@ -65,8 +64,8 @@ class TestPlanListCreateView:
             password='pass1234',
             email='other2@example.com'
         )
-        other_plan = Plan.objects.create(name="Other Plan", user=other_user)
-        my_plan = Plan.objects.create(name="My Plan", user=user)
+        other_plan = Plan.objects.create(user=other_user)
+        my_plan = Plan.objects.create(user=user)
 
         response = auth_client.get(url)
 
@@ -77,36 +76,24 @@ class TestPlanListCreateView:
     def test_create_plan_with_invalid_course(self, auth_client, url):
         cache.clear()
         data = {
-            "name": "Invalid Plan",
             "courses": [9999]
         }
         response = auth_client.post(url, data, format='json')
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert 'courses' in response.data
 
-    def test_create_plan_missing_name(self, auth_client, url, course):
-        cache.clear()
-        data = {
-            "courses": [course.id]
-        }
-        response = auth_client.post(url, data, format='json')
-        assert response.status_code == status.HTTP_201_CREATED
-        assert 'name' in response.data
-
     def test_unauthenticated_user_cannot_access(self, client, url):
         cache.clear()
         response = client.get(url)
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-        response = client.post(url, {"name": "test", "courses": []})
+        response = client.post(url, {"courses": []})
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_create_plan_with_empty_course_list(self, auth_client, url):
         cache.clear()
         data = {
-            "name": "Plan with no courses",
             "courses": []
         }
         response = auth_client.post(url, data, format='json')
         assert response.status_code == status.HTTP_201_CREATED
-        assert response.data['name'] == "Plan with no courses"
