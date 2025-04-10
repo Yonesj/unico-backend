@@ -1,6 +1,7 @@
 import base64
+from django.utils.translation import gettext_lazy as _
 from playwright.sync_api import sync_playwright
-from .captcha_solver.captcha_solver import solve
+from src.crawlers.captcha_solver.captcha_solver import solve
 
 
 class Crawler:
@@ -56,7 +57,7 @@ class Crawler:
             error_message = err_txt.get_attribute("title")
 
             if error_message and error_message == "کد1 : شناسه کاربري يا گذرواژه اشتباه است.":
-                raise ValueError("username or password is incorrect")
+                raise ValueError(_("username or password is incorrect"))
 
             if error_message and error_message == "لطفا كد امنيتي را به صورت صحيح وارد نماييد":
                 print("wrong_captcha")
@@ -143,7 +144,7 @@ class Crawler:
             max_tries -= 1
 
         if max_tries == 0:
-            raise ValueError("Login failed")
+            raise ValueError(_("Login failed"))
 
         self.search_courses()
         return self.extract_courses()

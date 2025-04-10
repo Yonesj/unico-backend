@@ -6,7 +6,9 @@ from django.core.cache import cache
 
 @pytest.fixture
 def client():
-    return APIClient()
+    client = APIClient()
+    client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
+    return client
 
 
 @pytest.fixture
@@ -44,8 +46,8 @@ class TestCoursesRetrieve:
                 Test that a course retrieve with wrong inputs.
         """
         cache.clear()
-        mocker.patch('src.courses.captcha_solver.captcha_solver.solve', return_value=True)
-        mock_crawler = mocker.patch('src.courses.crawler.Crawler')
+        mocker.patch('src.crawlers.captcha_solver.captcha_solver.solve', return_value=True)
+        mock_crawler = mocker.patch('src.crawlers.crawler.Crawler')
         mock_crawler_instance = mock_crawler.return_value
         mock_crawler_instance.fetch_student_courses.return_value = []
         mock_cleaner = MagicMock()

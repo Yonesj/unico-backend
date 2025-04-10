@@ -31,21 +31,21 @@ class TestRetrieveSharedPlanView:
 
     @pytest.fixture
     def plan_with_course(self, course, user):
-        plan = Plan.objects.create(name='Shared Plan', user=user)
+        plan = Plan.objects.create(user=user)
         plan.courses.add(course)
         return plan
 
     @pytest.fixture
     def plan_without_courses(self, user):
-        return Plan.objects.create(name='Empty Plan', user=user)
+        return Plan.objects.create(user=user)
 
-    def test_retrieve_shared_plan_success(self, api_client, plan_with_course):
+    def test_retrieve_shared_plan_success(self, user, api_client, plan_with_course):
         cache.clear()
         url = reverse('retrieve-shared-plan', kwargs={'share_uuid': plan_with_course.share_uuid})
         response = api_client.get(url)
         assert response.status_code == 200
         assert response.data['id'] == plan_with_course.id
-        assert response.data['name'] == plan_with_course.name
+        assert response.data['username'] == user.username
         assert isinstance(response.data['courses'], list)
         assert len(response.data['courses']) == 1
 

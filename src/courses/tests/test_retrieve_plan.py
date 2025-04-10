@@ -21,6 +21,7 @@ class TestRetrievePlanView:
     def auth_client(self, user):
         client = APIClient()
         client.force_authenticate(user=user)
+        client.defaults['HTTP_ACCEPT_LANGUAGE'] = 'en'
         return client
 
     @pytest.fixture
@@ -29,7 +30,7 @@ class TestRetrievePlanView:
 
     @pytest.fixture
     def plan(self, user):
-        return Plan.objects.create(name='Test Plan', user=user)
+        return Plan.objects.create(user=user)
 
     def test_retrieve_own_plan(self, auth_client, plan):
         cache.clear()
@@ -37,7 +38,6 @@ class TestRetrievePlanView:
         response = auth_client.get(url)
         assert response.status_code == 200
         assert response.data['id'] == plan.id
-        assert response.data['name'] == plan.name
 
     def test_cannot_retrieve_others_plan(self, other_user, plan):
         cache.clear()
