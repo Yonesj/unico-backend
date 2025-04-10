@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -6,7 +7,7 @@ from rest_framework.response import Response
 from src.utill.serializers import GolestanRequestSerializer
 from src.utill.cleaners import CrawlerRawDataCleaner
 from src.courses.serializers import CourseOutputSerializer
-from src.courses.crawler import Crawler
+from src.crawlers.crawler import Crawler
 from src.courses.services import bulk_save_courses, bulk_save_class_sessions, bulk_save_exams
 from src.courses.schemas import course_retrieve_view_schema
 
@@ -30,7 +31,7 @@ class CourseRetrieveView(GenericAPIView):
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({"detail": "internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"detail": _("internal server error")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         finally:
             crawler.close()
 
