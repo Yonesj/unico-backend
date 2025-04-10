@@ -6,11 +6,15 @@ from .coures_serializer import CourseModelSerializer
 
 class PlanRetrieveSerializer(serializers.ModelSerializer):
     courses = CourseModelSerializer(many=True, read_only=True)
+    username = serializers.SerializerMethodField()
 
     class Meta:
         model = Plan
-        fields = ['id', 'share_uuid', 'courses']
-        read_only_fields = ['id', 'share_uuid', 'courses']
+        fields = ['id', 'username', 'share_uuid', 'courses']
+        read_only_fields = ['id', 'username', 'share_uuid', 'courses']
+
+    def get_username(self, obj):
+        return obj.user.username if obj.user else None
 
 
 class PlanCreateSerializer(serializers.ModelSerializer):
