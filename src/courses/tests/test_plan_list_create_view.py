@@ -72,6 +72,7 @@ class TestPlanListCreateView:
         assert response.status_code == 200
         assert len(response.data) == 1
         assert response.data[0]['id'] == my_plan.id
+        assert response.data[0]['username'] == user.username
 
     def test_create_plan_with_invalid_course(self, auth_client, url):
         cache.clear()
