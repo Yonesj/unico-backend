@@ -95,9 +95,9 @@ User = get_user_model()
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'user', 'created_at', 'get_courses']
+    list_display = ['user', 'created_at', 'get_courses']
     list_filter = ['created_at', 'user']
-    search_fields = ['name', 'user__username', 'user__email']
+    search_fields = ['user__username', 'user__email']
     ordering = ['-created_at']
     filter_horizontal = ['courses']
 
