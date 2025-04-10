@@ -1,5 +1,6 @@
 import base64
 import os
+from time import perf_counter
 from PIL import Image
 from io import BytesIO
 import numpy as np
@@ -59,9 +60,12 @@ def split_images_x(img):
 
 
 def main(img=None):
+    start_time = perf_counter()
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(BASE_DIR, "edu.pkl")
     clf = load(file_path)
+
+    # id = str(time())
 
     src_img = img.convert("RGB")
     img = img.convert('L')
@@ -100,6 +104,8 @@ def main(img=None):
                 arr.append(np.array(pil_img).reshape((1024, -1)).flatten())
 
     prediction = ''.join(clf.predict(np.array(arr)))
+    print(f"solving capcha: {perf_counter() - start_time}")
+    print(prediction)
     return prediction
 
 
