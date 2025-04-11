@@ -1,0 +1,2 @@
+from .activation_code_view import ActivationCodeView
+from .password_reset_view import PasswordResetRequestView, PasswordResetConfirmView
