@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from src.utill.serializers import GolestanRequestSerializer
 from src.utill.cleaners import CrawlerRawDataCleaner
 from src.courses.serializers import CourseOutputSerializer
-from src.crawlers.crawler import Crawler
+from src.crawlers import CourseRetrieveCrawler
 from src.courses.services import bulk_save_courses, bulk_save_class_sessions, bulk_save_exams
 from src.courses.schemas import course_retrieve_view_schema
 
@@ -24,7 +24,7 @@ class CourseRetrieveView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         username = serializer.validated_data['student_id']
         password = serializer.validated_data['password']
-        crawler = Crawler()
+        crawler = CourseRetrieveCrawler()
 
         try:
             courses = crawler.fetch_student_courses(username, password)

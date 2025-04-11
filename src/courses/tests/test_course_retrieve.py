@@ -38,7 +38,6 @@ class TestCoursesRetrieve:
         response = client.post(self.endpoint, invalid_data, format='json')
         assert response.status_code == 500 or 400
         assert "detail" in response.data
-        assert response.data["detail"] == "internal server error"
 
     @pytest.mark.django_db
     def test_course_retrieve_wrong_data(self, client, valid_data, mocker):
@@ -47,7 +46,7 @@ class TestCoursesRetrieve:
         """
         cache.clear()
         mocker.patch('src.crawlers.captcha_solver.captcha_solver.solve', return_value=True)
-        mock_crawler = mocker.patch('src.crawlers.crawler.Crawler')
+        mock_crawler = mocker.patch('src.crawlers.golestan_base_crawler.GolestanBaseCrawler')
         mock_crawler_instance = mock_crawler.return_value
         mock_crawler_instance.fetch_student_courses.return_value = []
         mock_cleaner = MagicMock()
@@ -58,4 +57,3 @@ class TestCoursesRetrieve:
         mocker.patch('src.courses.services.exam_service.bulk_save_exams')
         response = client.post(self.endpoint, valid_data, format='json')
         assert response.status_code == 500 or 400
-

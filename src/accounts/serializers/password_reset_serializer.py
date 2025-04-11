@@ -5,36 +5,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
-from djoser.serializers import UserCreateSerializer as Base
-
-from .models import User
-
-
-class UserCreateSerializer(Base):
-    """
-        This serializer extends Djoser's `UserCreateSerializer` to define
-        the required fields for creating a new user.
-
-        **Fields**:
-            - `id` (int): Auto-generated user ID.
-            - `username` (str): Unique username for the user.
-            - `email` (str): User's email address, used as the login identifier.
-            - `password` (str): User's password (write-only).
-    """
-
-    class Meta(Base.Meta):
-        fields = ['id', 'username', 'password', 'email']
-
-
-class ActivationCodeSerializer(serializers.Serializer):
-    """
-       This serializer is used to validate the activation code provided by the user during the account activation process.
-
-        **Fields**:
-        - **activation_code** (str): A string field that accepts a maximum of 8 characters.
-          This code is expected to be sent to the user and then provided back for validation.
-    """
-    activation_code = serializers.CharField(max_length=8)
+from src.accounts.models import User
 
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -99,14 +70,3 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         password = self.validated_data['password']
         user.set_password(password)
         user.save()
-
-
-class MessageSerializer(serializers.Serializer):
-    """
-        This serializer is used for generic message responses in API endpoints,
-        such as success messages or error notifications.
-
-        **Fields**:
-            - `detail` (str): A message describing the result of the API request.
-    """
-    detail = serializers.CharField()
