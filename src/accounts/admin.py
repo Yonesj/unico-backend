@@ -14,12 +14,19 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "username", "password1", "password2", "first_name", "last_name"),
+                "fields": ("email", "username", "password1", "password2", "full_name"),
             },
         ),
     )
 
-    list_display = ("email", "username", "first_name", "last_name", "is_staff")
+    list_display = ("email", "username", "full_name", "is_ui_student", "is_staff")
+    list_filter = ("is_ui_student", "is_staff", "is_superuser", "is_active", "groups")
+
+    fieldsets = (
+        (None, {"fields": ("email", "username", "password", "full_name")}),
+        ("Permissions", {"fields": ("is_active", "is_ui_student", "is_staff", "is_superuser", "groups", "user_permissions")}),
+        ("Important dates", {"fields": ("last_login", "date_joined")}),
+    )
 
 
 @admin.register(ActivationCode)
