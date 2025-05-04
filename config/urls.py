@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('src.accounts.urls')),
     path('course-scheduler/', include('src.courses.urls')),
+    path('professor-reviewer/', include('src.reviews.urls')),
 ]
 
 if settings.DEBUG:
