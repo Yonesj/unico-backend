@@ -1,6 +1,7 @@
 from django.db import models
 
 from src.reviews.fields import RatingAvgField
+from src.reviews.managers import ProfessorManager, ProfessorQuerySet
 from src.utill.validators import FileSizeValidator
 
 
@@ -31,6 +32,8 @@ class Professor(models.Model):
     exam_difficulty_avg      = RatingAvgField()
     homework_difficulty_avg  = RatingAvgField()
     average_would_take_again = RatingAvgField()
+
+    objects = ProfessorManager()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
