@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'src.accounts',
     'src.courses',
+    'src.reviews',
 ]
 
 MIDDLEWARE = [
