@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from src.reviews.fields import RatingField
+from src.reviews.managers import ReviewManager, ReviewQuerySet
 from .enums import State, AttendancePolicy
 
 
@@ -30,6 +31,9 @@ class Review(models.Model):
     )
 
     review_text          = models.CharField(max_length=350, blank=True)
+
+    objects = ReviewManager()
+    all_objects = ReviewQuerySet.as_manager()
 
     class Meta:
         ordering = ['-created_at']
