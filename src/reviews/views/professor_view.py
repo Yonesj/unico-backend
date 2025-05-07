@@ -5,11 +5,16 @@ from rest_framework.permissions import AllowAny
 
 from src.reviews.models import Professor, ProfessorPageView
 from src.reviews.paginations import TopFourItemLimitPagination
+from src.reviews.schemas import (
+    professor_list_view_schema, most_viewed_professors_schema, most_popular_professors_schema,
+    professor_retrieve_view_schema, professor_card_retrieve_schema, professor_compare_view_schema
+)
 from src.reviews.serializers import (
     ProfessorRetrieveSerializer, ProfessorSearchResultSerializer, ProfessorCardSerializer, ProfessorCompareSerializer
 )
 
 
+@professor_list_view_schema
 class ProfessorListView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorSearchResultSerializer
@@ -20,6 +25,7 @@ class ProfessorListView(ListAPIView):
         return Professor.objects.with_base_eager_loading()
 
 
+@most_popular_professors_schema
 class MostPopularProfessorListView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorCardSerializer
@@ -34,6 +40,7 @@ class MostPopularProfessorListView(ListAPIView):
         )
 
 
+@most_viewed_professors_schema
 class MostViewedProfessorListView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorCardSerializer
@@ -48,6 +55,7 @@ class MostViewedProfessorListView(ListAPIView):
         )
 
 
+@professor_retrieve_view_schema
 class ProfessorRetrieveView(RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorRetrieveSerializer
@@ -74,6 +82,7 @@ class ProfessorRetrieveView(RetrieveAPIView):
         return Response(serializer.data)
 
 
+@professor_card_retrieve_schema
 class ProfessorCardRetrieveView(RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorCompareSerializer
@@ -86,6 +95,7 @@ class ProfessorCardRetrieveView(RetrieveAPIView):
         )
 
 
+@professor_compare_view_schema
 class ProfessorCompareView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = ProfessorCardSerializer
