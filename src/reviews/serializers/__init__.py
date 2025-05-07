@@ -1,1 +1,13 @@
 from .faculty_serializer import FacultyRetrieveSerializer
+from .course_serializer import CourseSummarySerializer, CourseCreateSerializer
+from .professor_serializer import (
+    ProfessorRetrieveSerializer, ProfessorSearchResultSerializer, ProfessorCardSerializer, ProfessorSummarySerializer,
+    ProfessorCompareSerializer
+)
+from .review_serializer import (
+    ReviewCreateSerializer, ReviewRetrieveSerializer, ReviewCardSerializer, MyReviewRetrieveSerializer
+)
+from .review_reaction_serializer import ReviewReactionCreateSerializer, ReviewReactionRetrieveSerializer, ReviewReactionUpdateSerializer
+from .review_report_serializer import ReviewReportCreateSerializer
+from .review_revision_serializer import ReviewRevisionCreateSerializer
+from .professor_proposal_serializer import ProfessorProposalCreateSerializer
