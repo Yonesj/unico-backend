@@ -1,0 +1,10 @@
+from .student_view import StudentCreateView
+from .faculty_view import FacultyListView
+from .review_view import ProfessorReviewsListView, LatestReviewListView, MyReviewListView, ReviewCreateView, ReviewRetrieveView
+from .professor_view import ProfessorListView, ProfessorRetrieveView, MostPopularProfessorListView, MostViewedProfessorListView, ProfessorCompareView, ProfessorCardRetrieveView
+from .review_reaction_view import MyReviewReactionListView, ReviewReactionCreateView, ReviewReactionUpdateDestroyView
+from .review_report_view import ReviewReportCreateView
+from .course_view import CourseListView
+from .review_revision_view import ReviewRevisionCreateView
+from .professor_proposal_view import ProfessorProposalCreateView
+from .professor_revision_view import ProfessorRevisionCreateView

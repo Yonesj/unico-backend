@@ -9,3 +9,10 @@ class IsOwnerOrAdmin(permissions.BasePermission):
         if request.user and request.user.is_staff:
             return True
         return obj.user == request.user
+
+
+class IsUIStudent(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user and request.user.is_ui_student:
+            return True
+        return False
