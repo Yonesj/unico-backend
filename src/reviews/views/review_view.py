@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from src.reviews.models import Review
 from src.reviews.serializers import ReviewCreateSerializer, ReviewRetrieveSerializer, ReviewCardSerializer, MyReviewRetrieveSerializer
 from src.reviews.paginations import TenPerPagePagination, TopFourItemLimitPagination
+from src.utill.permissions import IsUIStudent
 
 
 class LatestReviewListView(ListAPIView):
@@ -52,7 +53,7 @@ class MyReviewListView(ListAPIView):
 
 
 class ReviewCreateView(CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsUIStudent]
     serializer_class = ReviewCreateSerializer
     queryset = Review.objects.all()
 

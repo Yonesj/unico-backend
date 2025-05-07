@@ -1,7 +1,7 @@
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from src.utill.permissions import IsOwnerOrAdmin
+from src.utill.permissions import IsUIStudent, IsOwnerOrAdmin
 from src.reviews.models import ReviewReaction
 from src.reviews.serializers import ReviewReactionCreateSerializer
 from src.reviews.serializers.review_reaction_serializer import ReviewReactionRetrieveSerializer, ReviewReactionUpdateSerializer
@@ -20,7 +20,7 @@ class MyReviewReactionListView(ListAPIView):
 
 
 class ReviewReactionCreateView(CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsUIStudent]
     serializer_class = ReviewReactionCreateSerializer
     queryset = ReviewReaction.objects.all()
 
