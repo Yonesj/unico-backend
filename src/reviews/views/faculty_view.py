@@ -4,8 +4,10 @@ from rest_framework.permissions import AllowAny
 
 from src.reviews.models import Faculty
 from src.reviews.serializers import FacultyRetrieveSerializer
+from src.reviews.schemas import faculty_list_view_schema
 
 
+@faculty_list_view_schema
 class FacultyListView(ListAPIView):
     queryset = Faculty.objects.all()
     permission_classes = [AllowAny]
