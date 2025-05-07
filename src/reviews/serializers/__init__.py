@@ -11,3 +11,4 @@ from .review_reaction_serializer import ReviewReactionCreateSerializer, ReviewRe
 from .review_report_serializer import ReviewReportCreateSerializer
 from .review_revision_serializer import ReviewRevisionCreateSerializer
 from .professor_proposal_serializer import ProfessorProposalCreateSerializer
+from .professor_revision_serializer import ProfessorRevisionCreateSerializer
