@@ -1,7 +1,7 @@
 from django.db import models
 
 from src.reviews.fields import RatingAvgField
-from src.reviews.managers import ProfessorManager, ProfessorQuerySet
+from src.reviews.managers import ProfessorManager
 from src.utill.validators import FileSizeValidator
 
 
