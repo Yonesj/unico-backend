@@ -3,8 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from src.reviews.models import ReviewReport
 from src.reviews.serializers import ReviewReportCreateSerializer
+from src.reviews.schemas import review_report_create_schema
 
 
+@review_report_create_schema
 class ReviewReportCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewReportCreateSerializer

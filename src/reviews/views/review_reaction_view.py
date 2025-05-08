@@ -4,9 +4,13 @@ from rest_framework.permissions import IsAuthenticated
 from src.utill.permissions import IsUIStudent, IsOwnerOrAdmin
 from src.reviews.models import ReviewReaction
 from src.reviews.serializers import ReviewReactionCreateSerializer
-from src.reviews.serializers.review_reaction_serializer import ReviewReactionRetrieveSerializer, ReviewReactionUpdateSerializer
+from src.reviews.serializers import ReviewReactionRetrieveSerializer, ReviewReactionUpdateSerializer
+from src.reviews.schemas import (
+    review_reaction_create_schema, review_reaction_update_destroy_schema, my_review_reaction_list_schema
+)
 
 
+@my_review_reaction_list_schema
 class MyReviewReactionListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewReactionRetrieveSerializer
@@ -19,6 +23,7 @@ class MyReviewReactionListView(ListAPIView):
         )
 
 
+@review_reaction_create_schema
 class ReviewReactionCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated, IsUIStudent]
     serializer_class = ReviewReactionCreateSerializer
@@ -30,6 +35,7 @@ class ReviewReactionCreateView(CreateAPIView):
         return ctx
 
 
+@review_reaction_update_destroy_schema
 class ReviewReactionUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     http_method_names = ['patch', 'delete']
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]

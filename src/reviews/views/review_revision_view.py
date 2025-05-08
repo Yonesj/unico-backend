@@ -4,8 +4,10 @@ from rest_framework.permissions import IsAuthenticated
 from src.reviews.models import ReviewRevision
 from src.reviews.serializers import ReviewRevisionCreateSerializer
 from src.utill.permissions import IsOwnerOrAdmin
+from src.reviews.schemas import review_revision_create_schema
 
 
+@review_revision_create_schema
 class ReviewRevisionCreateView(CreateAPIView):
     queryset = ReviewRevision.objects.all()
     serializer_class = ReviewRevisionCreateSerializer

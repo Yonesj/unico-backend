@@ -8,8 +8,10 @@ from rest_framework.response import Response
 from src.utill.serializers import GolestanRequestSerializer
 from src.crawlers import StudentValidatorCrawler
 from src.reviews.models import Student
+from src.reviews.schemas import student_create_view_schema
 
 
+@student_create_view_schema
 class StudentCreateView(GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = GolestanRequestSerializer
