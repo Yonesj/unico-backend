@@ -20,3 +20,6 @@ from .review_schema import (
 )
 from .review_report_schema import review_report_create_schema
 from .review_revision_schema import review_revision_create_schema
+from .review_reaction_schema import (
+    review_reaction_create_schema, review_reaction_update_destroy_schema, my_review_reaction_list_schema
+)
