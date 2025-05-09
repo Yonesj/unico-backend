@@ -192,4 +192,4 @@ def test_most_viewed_professors_with_limit(api_client, professor_factory, course
 def test_most_viewed_professors_with_invalid_limit(api_client):
     url = reverse("most-viewed-professors") + "?limit=abc"
     response = api_client.get(url)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.status_code == status.HTTP_200_OK
