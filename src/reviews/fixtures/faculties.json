@@ -1,0 +1,122 @@
+[
+  {
+    "model": "reviews.faculty",
+    "pk": 1,
+    "fields": {
+      "name": "ادبیات و علوم انسانی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 2,
+    "fields": {
+      "name": "الهیات و معارف اهل البیت",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 3,
+    "fields": {
+      "name": "علوم ورزشی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 4,
+    "fields": {
+      "name": "زبان های خارجی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 5,
+    "fields": {
+      "name": "شیمی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 6,
+    "fields": {
+      "name": "گروه زمین شناسی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 7,
+    "fields": {
+      "name": "علوم اداری و اقتصاد",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 8,
+    "fields": {
+      "name": "علوم تربیتی و روان شناسی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 9,
+    "fields": {
+      "name": "علوم جغرافیایی و برنامه ریزی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 10,
+    "fields": {
+      "name": "مهندسی عمران و حمل و نقل",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 11,
+    "fields": {
+      "name": "فنی و مهندسی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 12,
+    "fields": {
+      "name": "مهندسی کامپیوتر",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 13,
+    "fields": {
+      "name": "علوم و فناوری های زیستی",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 14,
+    "fields": {
+      "name": "ریاضی و آمار",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  },
+  {
+    "model": "reviews.faculty",
+    "pk": 15,
+    "fields": {
+      "name": "فیزیک",
+      "created_at": "2025-05-03T00:00:00Z"
+    }
+  }
+]
