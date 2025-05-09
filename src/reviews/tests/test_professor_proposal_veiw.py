@@ -40,7 +40,6 @@ def test_professor_proposal_create_success(authenticated_client, faculty, user):
         "website_url": "http://example.com",
         "office_location": "Building A, Room 101",
     }
-
     response = authenticated_client.post(url, data=payload, format="json")
 
     assert response.status_code == status.HTTP_201_CREATED
