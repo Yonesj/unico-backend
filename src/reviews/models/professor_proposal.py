@@ -9,7 +9,7 @@ from src.utill.validators import FileSizeValidator
 class ProfessorProposal(models.Model):
     first_name         = models.CharField(max_length=50)
     last_name          = models.CharField(max_length=50)
-    faculty            = models.ForeignKey('Faculty', on_delete=models.SET_NULL, null=True)
+    faculty            = models.ForeignKey('Faculty', on_delete=models.SET_NULL)
     proposed_courses   = ArrayField(models.CharField(max_length=64), default=list)
     office_number      = models.CharField(max_length=16, blank=True)
     telegram_account   = models.CharField(max_length=64, blank=True)
