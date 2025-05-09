@@ -1,0 +1,122 @@
+[
+  {
+    "model": "reviews.professor",
+    "pk": 1,
+    "fields": {
+      "faculty": 1,
+      "first_name": "Ali",
+      "last_name": "Rezaei",
+      "profile_image": null,
+      "office_number": "A12",
+      "telegram_account": "@ali_rezaei",
+      "email": "ali.rezaei@university.edu",
+      "website_url": "https://university.edu/~arezaei",
+      "office_location": "Building A, Room 12",
+      "schedule_image": null,
+      "student_scores_avg": 16.2,
+      "overall_rating": 4.1,
+      "grading_avg": 15.8,
+      "general_knowledge_avg": 4.5,
+      "teaching_engagement_avg": 4.0,
+      "exam_difficulty_avg": 3.2,
+      "homework_difficulty_avg": 3.6,
+      "average_would_take_again": 4.2
+    }
+  },
+  {
+    "model": "reviews.professor",
+    "pk": 2,
+    "fields": {
+      "faculty": 2,
+      "first_name": "Sara",
+      "last_name": "Mohammadi",
+      "profile_image": "professor_profiles/sara_mohammadi.jpg",
+      "office_number": "B07",
+      "telegram_account": "",
+      "email": "sara.mohammadi@university.edu",
+      "website_url": null,
+      "office_location": "Building B, Room 7",
+      "schedule_image": "professor_schedules/sara_schedule.png",
+      "student_scores_avg": 18.4,
+      "overall_rating": 4.7,
+      "grading_avg": 18.2,
+      "general_knowledge_avg": 4.8,
+      "teaching_engagement_avg": 4.9,
+      "exam_difficulty_avg": 3.8,
+      "homework_difficulty_avg": 4.0,
+      "average_would_take_again": 4.9
+    }
+  },
+  {
+    "model": "reviews.professor",
+    "pk": 3,
+    "fields": {
+      "faculty": 3,
+      "first_name": "Mehdi",
+      "last_name": "Karimi",
+      "profile_image": null,
+      "office_number": "",
+      "telegram_account": "@mehdi_karimi",
+      "email": "mehdi.karimi@university.edu",
+      "website_url": "https://karimi.example.edu",
+      "office_location": "",
+      "schedule_image": null,
+      "student_scores_avg": 14.9,
+      "overall_rating": 3.9,
+      "grading_avg": 14.5,
+      "general_knowledge_avg": 4.1,
+      "teaching_engagement_avg": 3.8,
+      "exam_difficulty_avg": 4.2,
+      "homework_difficulty_avg": 3.5,
+      "average_would_take_again": 3.7
+    }
+  },
+  {
+    "model": "reviews.professor",
+    "pk": 4,
+    "fields": {
+      "faculty": 4,
+      "first_name": "Leyla",
+      "last_name": "Hatami",
+      "profile_image": "professor_profiles/leyla_hatami.jpg",
+      "office_number": "C21",
+      "telegram_account": "",
+      "email": "leyla.hatami@university.edu",
+      "website_url": null,
+      "office_location": "Building C, Room 21",
+      "schedule_image": "professor_schedules/leyla_schedule.png",
+      "student_scores_avg": 19.1,
+      "overall_rating": 4.8,
+      "grading_avg": 18.9,
+      "general_knowledge_avg": 4.9,
+      "teaching_engagement_avg": 4.8,
+      "exam_difficulty_avg": 3.9,
+      "homework_difficulty_avg": 4.1,
+      "average_would_take_again": 5.0
+    }
+  },
+  {
+    "model": "reviews.professor",
+    "pk": 5,
+    "fields": {
+      "faculty": 5,
+      "first_name": "Hossein",
+      "last_name": "Farhadi",
+      "profile_image": null,
+      "office_number": "",
+      "telegram_account": "@hossein_farhadi",
+      "email": "hossein.farhadi@university.edu",
+      "website_url": "https://farhadi.example.edu",
+      "office_location": "",
+      "schedule_image": null,
+      "student_scores_avg": 17.5,
+      "overall_rating": 4.3,
+      "grading_avg": 17.2,
+      "general_knowledge_avg": 4.4,
+      "teaching_engagement_avg": 4.2,
+      "exam_difficulty_avg": 3.7,
+      "homework_difficulty_avg": 3.9,
+      "average_would_take_again": 4.5
+    }
+  }
+]

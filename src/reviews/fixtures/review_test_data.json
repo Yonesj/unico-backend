@@ -1,0 +1,112 @@
+[
+  {
+    "model": "reviews.review",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "course": 1,
+      "created_at": "2025-04-25T09:30:00Z",
+      "state": "approved",
+      "validated_by": null,
+      "validated_at": null,
+      "grading": 5,
+      "exam_difficulty": 4,
+      "general_knowledge": 4,
+      "homework_difficulty": 3,
+      "teaching_engagement": 5,
+      "exam_resources": "Lecture slides and online tutorials",
+      "attendance_policy": "unknown",
+      "would_take_again": true,
+      "received_score": "18.50",
+      "review_text": "Very engaging course!"
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "course": 2,
+      "created_at": "2025-04-26T11:15:00Z",
+      "state": "approved",
+      "validated_by": null,
+      "validated_at": null,
+      "grading": 4,
+      "exam_difficulty": 3,
+      "general_knowledge": 4,
+      "homework_difficulty": 2,
+      "teaching_engagement": 4,
+      "exam_resources": "Recommended reading list",
+      "attendance_policy": "unknown",
+      "would_take_again": true,
+      "received_score": "15.00",
+      "review_text": "Good balance of theory and practice."
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "course": 3,
+      "created_at": "2025-04-27T14:45:00Z",
+      "state": "approved",
+      "validated_by": null,
+      "validated_at": null,
+      "grading": 3,
+      "exam_difficulty": 2,
+      "general_knowledge": 3,
+      "homework_difficulty": 3,
+      "teaching_engagement": 3,
+      "exam_resources": "Field trip materials",
+      "attendance_policy": "unknown",
+      "would_take_again": true,
+      "received_score": "12.00",
+      "review_text": "Interesting but challenging."
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 8,
+    "fields": {
+      "user": 1,
+      "course": 4,
+      "created_at": "2025-04-28T11:00:00Z",
+      "state": "approved",
+      "validated_by": null,
+      "validated_at": null,
+      "grading": 4,
+      "exam_difficulty": 3,
+      "general_knowledge": 4,
+      "homework_difficulty": 2,
+      "teaching_engagement": 4,
+      "exam_resources": "Workbook exercises",
+      "attendance_policy": "unknown",
+      "would_take_again": true,
+      "received_score": "17.00",
+      "review_text": "Well structured course."
+    }
+  },
+  {
+    "model": "reviews.review",
+    "pk": 9,
+    "fields": {
+      "user": 1,
+      "course": 5,
+      "created_at": "2025-04-29T08:15:00Z",
+      "state": "pending",
+      "validated_by": null,
+      "validated_at": null,
+      "grading": 3,
+      "exam_difficulty": 3,
+      "general_knowledge": 3,
+      "homework_difficulty": 3,
+      "teaching_engagement": 3,
+      "exam_resources": "",
+      "attendance_policy": "unknown",
+      "would_take_again": false,
+      "received_score": null,
+      "review_text": ""
+    }
+  }
+]
