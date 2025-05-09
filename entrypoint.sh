@@ -29,5 +29,11 @@ except Exception as e:
     print('Error while creating superuser:', e)
 "
 
+echo "loading fixtures"
+python manage.py loaddata src/reviews/fixtures/professor_test_data.json
+python manage.py loaddata src/reviews/fixtures/course_test_data.json
+python manage.py loaddata src/reviews/fixtures/review_test_data.json
+
+
 echo "Starting Django server..."
 exec python manage.py runserver 0.0.0.0:8000
