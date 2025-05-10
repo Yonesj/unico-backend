@@ -29,7 +29,6 @@ def user_factory(db):
     return create_user
 
 
-
 @pytest.fixture
 def student_user(user_factory):
     return user_factory(username="student", is_ui_student=True)
