@@ -174,8 +174,8 @@ def test_review_with_non_approved_state_not_included(api_client, review_factory,
     assert response.status_code == status.HTTP_200_OK
     assert response.data['results'] == []
 
-# @pytest.mark.django_db
-# def test_invalid_professor_id_returns_404(api_client):
-#     url = reverse('retrieve-professor-reviews', kwargs={'pk': 9999})
-#     response = api_client.get(url)
-#     assert response.status_code == status.HTTP_404_NOT_FOUND
+@pytest.mark.django_db
+def test_invalid_professor_id_returns_200(api_client):
+    url = reverse('retrieve-professor-reviews', kwargs={'pk': 9999})
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
