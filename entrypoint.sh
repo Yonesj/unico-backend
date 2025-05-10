@@ -30,9 +30,9 @@ except Exception as e:
 "
 
 echo "loading fixtures"
-python manage.py loaddata src/reviews/fixtures/professor_test_data.json
-python manage.py loaddata src/reviews/fixtures/course_test_data.json
-python manage.py loaddata src/reviews/fixtures/review_test_data.json
+python manage.py loaddata src/reviews/fixtures/professors_data.json
+python manage.py loaddata src/reviews/fixtures/courses_data.json
+python manage.py loaddata src/reviews/fixtures/reviews_data.json
 
 
 echo "Starting Django server..."
