@@ -11,6 +11,7 @@ class ReviewRetrieveSerializer(serializers.ModelSerializer):
     course = CourseSummarySerializer(read_only=True)
     likes_count = serializers.IntegerField(read_only=True)
     dislikes_count = serializers.IntegerField(read_only=True)
+    overall = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
@@ -18,10 +19,23 @@ class ReviewRetrieveSerializer(serializers.ModelSerializer):
             'id', 'user', 'course', 'created_at',
             'grading', 'exam_difficulty', 'general_knowledge', 'homework_difficulty', 'teaching_engagement',
             'would_take_again', 'attendance_policy', 'received_score', 'exam_resources',
-            'review_text', 'likes_count', 'dislikes_count'
+            'review_text', 'likes_count', 'dislikes_count', 'overall'
         ]
         read_only_fields = fields
 
+    def get_overall(self, obj):
+        metrics = ['grading', 'exam_difficulty', 'general_knowledge', 'homework_difficulty', 'teaching_engagement']
+        values = []
+
+        for m in metrics:
+            val = getattr(obj, m, None)
+            if val is not None:
+                values.append(val)
+
+        if not values:
+            return None
+
+        return round(sum(values) / len(values), 1)
 
 class MyReviewRetrieveSerializer(ReviewRetrieveSerializer):
     class Meta(ReviewRetrieveSerializer.Meta):
