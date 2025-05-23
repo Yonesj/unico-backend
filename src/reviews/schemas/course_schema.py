@@ -1,45 +1,59 @@
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample, OpenApiParameter
 
-from src.reviews.serializers import CourseSummarySerializer
-from src.utill.general_schemas import BAD_REQUEST, TOO_MANY_REQUESTS
+from src.reviews.serializers import CourseSummarySerializer, CourseCreateSerializer
+from src.utill.general_schemas import BAD_REQUEST, INVALID_AUTHENTICATION, TOO_MANY_REQUESTS
 
 
-course_list_view_schema = extend_schema(
-    summary="List Courses",
-    description="Retrieve a list of courses. You may filter by `faculty_id` or search by course `name`.",
+course_list_create_schema = extend_schema(
+    summary="List and Create Courses",
+    description="GET returns a list of courses (filterable by `faculty_id` and searchable by `name`).\n"
+                "POST allows authenticated users to propose a new course for a professor; the course will be "
+                "created in a pending state for admin validation.",
     parameters=[
         OpenApiParameter(
             name="faculty_id",
-            description="Filter courses by the ID of their faculty.",
+            description="Filter by faculty primary key.",
             required=False,
             type=int,
             location=OpenApiParameter.QUERY,
         ),
         OpenApiParameter(
             name="search",
-            description="Search courses by name (partial, case-insensitive match).",
+            description="Search courses by name.",
             required=False,
             type=str,
             location=OpenApiParameter.QUERY,
         ),
     ],
+    request=CourseCreateSerializer,
     responses={
         200: OpenApiResponse(
+            description="A list of courses.",
             response=CourseSummarySerializer(many=True),
-            description="A list of matching courses.",
             examples=[
                 OpenApiExample(
-                    name="Example Response",
+                    name="GET Response Example",
                     value=[
                         {"id": 1, "name": "Introduction to Persian Literature"},
-                        {"id": 2, "name": "Foundations of Theology"},
-                        {"id": 3, "name": "Basics of Geology"}
+                        {"id": 2, "name": "Foundations of Theology"}
                     ],
-                    response_only=True,
+                    response_only=True
                 )
-            ],
+            ]
+        ),
+        201: OpenApiResponse(
+            description="Course created successfully (pending validation).",
+            response=CourseCreateSerializer,
+            examples=[
+                OpenApiExample(
+                    name="POST Response Example",
+                    value={"id": 3, "professor": 5, "name": "Advanced Geology", "state": "pending"},
+                    response_only=True
+                )
+            ]
         ),
         400: BAD_REQUEST,
+        401: INVALID_AUTHENTICATION,
         429: TOO_MANY_REQUESTS,
     }
 )

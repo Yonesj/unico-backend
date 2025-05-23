@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from src.reviews.models import Course, State
 from src.reviews.serializers import CourseSummarySerializer, CourseCreateSerializer
-from src.reviews.schemas import course_list_view_schema
+from src.reviews.schemas import course_list_create_schema
 
 
-@course_list_view_schema
+@course_list_create_schema
 class CourseListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Course.objects.filter(state=State.APPROVED)
