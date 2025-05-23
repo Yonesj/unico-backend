@@ -10,7 +10,7 @@ from .views import (
     MyReviewReactionListView,
     ReviewReactionCreateView,
     ReviewReportCreateView,
-    CourseListView,
+    CourseListCreateView,
     MyReviewListView,
     ReviewCreateView,
     ReviewReactionUpdateDestroyView,
@@ -29,7 +29,7 @@ urlpatterns = [
 
     path('faculties/', FacultyListView.as_view(), name='list-faculty'),
 
-    path('courses/', CourseListView.as_view(), name='list-course'),
+    path('courses/', CourseListCreateView.as_view(), name='list-course'),
     # path('courses/<int:pk>/', TempView.as_view(), name='retrieve-update-course'),
     # path('courses/<int:course_pk>/reviews/', TempView.as_view(), name='list-and-create-review'),
 
