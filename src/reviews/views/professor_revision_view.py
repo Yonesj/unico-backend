@@ -12,3 +12,8 @@ class ProfessorRevisionCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated, IsUIStudent]
     queryset = ProfessorRevision.objects.all()
     serializer_class = ProfessorRevisionCreateSerializer
+
+    def get_serializer_context(self):
+        ctx = super().get_serializer_context()
+        ctx['professor_id'] = self.kwargs['pk']
+        return ctx
