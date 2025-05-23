@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.db.models import Q
 
 from src.reviews.models import State
 from src.utill.validators import FileSizeValidator
@@ -11,7 +10,11 @@ class ProfessorRevision(models.Model):
     professor          = models.ForeignKey('Professor', on_delete=models.CASCADE)
 
     faculty            = models.ForeignKey('Faculty', on_delete=models.SET_NULL, null=True)
-    proposed_courses   = ArrayField(models.CharField(max_length=64), default=list)
+    proposed_course_ids = ArrayField(
+        base_field=models.BigIntegerField(),
+        default=list,
+        help_text="List of Course IDs this proposal suggests"
+    )
     office_number      = models.CharField(max_length=16, blank=True)
     telegram_account   = models.CharField(max_length=64, blank=True)
     email              = models.EmailField(unique=True, null=True, blank=True)
@@ -29,10 +32,3 @@ class ProfessorRevision(models.Model):
 
     class Meta:
         ordering = ['-submitted_at']
-        constraints = [
-            models.UniqueConstraint(
-                fields=['professor', 'submitted_by'],
-                condition=Q(state=State.PENDING),
-                name='unique_pending_revision_per_user_per_prof'
-            )
-        ]
