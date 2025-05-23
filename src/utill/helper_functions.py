@@ -1,5 +1,8 @@
 import re
+from django.db.models import Avg, Count, Q
+
 from src.courses.models import Gender, WeekDay
+from src.reviews.models import Review, Professor, State
 
 
 def determine_gender(s):
@@ -79,3 +82,49 @@ def extract_class_sessions_and_exam_info(class_day):
             class_sessions.append(record)
 
     return class_sessions, exam_info
+
+
+def recalculate_professor_cache_fields(professor_id):
+    """
+    Re-aggregate all APPROVED reviews for this professor and
+    update the cache fields on the Professor model.
+    """
+    qs = Review.all_objects.filter(
+        state=State.APPROVED,
+        course__professor_id=professor_id
+    )
+
+    counts = qs.aggregate(
+        total=Count('pk'),
+        take_again=Count('pk', filter=Q(would_take_again=True)),
+    )
+
+    if counts['total'] == 0:
+        return
+
+    aggs = qs.aggregate(
+        grading_avg=Avg('grading'),
+        exam_diff_avg=Avg('exam_difficulty'),
+        general_knowledge_avg=Avg('general_knowledge'),
+        homework_diff_avg=Avg('homework_difficulty'),
+        teaching_engagement_avg=Avg('teaching_engagement'),
+        received_score_avg=Avg('received_score')
+    )
+
+    defaults = {
+        'grading_avg': aggs['grading_avg'] or 0,
+        'exam_difficulty_avg': aggs['exam_diff_avg'] or 0,
+        'general_knowledge_avg': aggs['general_knowledge_avg'] or 0,
+        'homework_difficulty_avg': aggs['homework_diff_avg'] or 0,
+        'teaching_engagement_avg': aggs['teaching_engagement_avg'] or 0
+    }
+
+    defaults['overall_rating'] = sum(defaults.values()) / len(defaults)
+    defaults['student_scores_avg'] = aggs['received_score_avg'] or 0
+    defaults['average_would_take_again'] = counts['take_again'] / counts['total']
+
+    for k, v in defaults.items():
+        if v is not None:
+            defaults[k] = round(v, 2)
+
+    Professor.objects.filter(pk=professor_id).update(**defaults)

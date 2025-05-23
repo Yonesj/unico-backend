@@ -4,7 +4,7 @@ from .review_view import ProfessorReviewsListView, LatestReviewListView, MyRevie
 from .professor_view import ProfessorListView, ProfessorRetrieveView, MostPopularProfessorListView, MostViewedProfessorListView, ProfessorCompareView, ProfessorCardRetrieveView
 from .review_reaction_view import MyReviewReactionListView, ReviewReactionCreateView, ReviewReactionUpdateDestroyView
 from .review_report_view import ReviewReportCreateView
-from .course_view import CourseListView
+from .course_view import CourseListCreateView
 from .review_revision_view import ReviewRevisionCreateView
 from .professor_proposal_view import ProfessorProposalCreateView
 from .professor_revision_view import ProfessorRevisionCreateView

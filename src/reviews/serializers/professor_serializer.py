@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from src.reviews.models import Professor, State
+from src.reviews.models import Professor
 from src.reviews.serializers import CourseSummarySerializer
 
 
 class ProfessorSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
-        fields = ['id', 'profile_image', 'first_name', 'last_name']
+        fields = ['id', 'profile_image', 'first_name', 'last_name', 'overall_rating']
         read_only_fields = fields
 
 
