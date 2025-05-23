@@ -1,6 +1,8 @@
 from django.utils import timezone
 from django.contrib import admin
+
 from src.reviews.models import Review, State
+from src.utill.helper_functions import recalculate_professor_cache_fields
 
 
 @admin.register(Review)
@@ -42,14 +44,34 @@ class ReviewAdmin(admin.ModelAdmin):
         if change and 'state' in form.changed_data:
             obj.validated_by = request.user
             obj.validated_at = timezone.now()
+
         super().save_model(request, obj, form, change)
+
+        if change and 'state' in form.changed_data and obj.state == State.APPROVED:
+            recalculate_professor_cache_fields(obj.course.professor_id)
 
     @admin.action(description="Mark selected reviews as approved")
     def approve_reviews(self, request, queryset):
-        updated = queryset.update(state=State.APPROVED, validated_by=request.user, validated_at=timezone.now())
+        now = timezone.now()
+        updated = queryset.update(
+            state=State.APPROVED,
+            validated_by=request.user,
+            validated_at=now
+        )
+
+        prof_ids = queryset.values_list('course__professor_id', flat=True).distinct()
+        for pid in prof_ids:
+            recalculate_professor_cache_fields(pid)
+
         self.message_user(request, f"{updated} review(s) marked as approved.")
 
     @admin.action(description="Mark selected reviews as rejected")
     def reject_reviews(self, request, queryset):
-        updated = queryset.update(state=State.REJECTED, validated_by=request.user, validated_at=timezone.now())
+        now = timezone.now()
+        updated = queryset.update(
+            state=State.REJECTED,
+            validated_by=request.user,
+            validated_at=now
+        )
+
         self.message_user(request, f"{updated} review(s) marked as rejected.")

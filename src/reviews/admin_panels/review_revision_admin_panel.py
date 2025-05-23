@@ -1,19 +1,19 @@
 from django.contrib import admin
 from django.utils import timezone
 from django.utils.html import format_html
-from django.db import transaction
 
 from src.reviews.models import ReviewRevision, State
+from src.utill.helper_functions import recalculate_professor_cache_fields
 
 
 @admin.register(ReviewRevision)
 class ReviewRevisionAdmin(admin.ModelAdmin):
     list_display = ('id', 'review_link', 'state', 'created_at', 'validated_by', 'validated_at')
     list_filter = ('state', 'created_at')
-    search_fields = ('review__review_text','review__user__username','review__course__name')
+    search_fields = ('review__review_text', 'review__user__username', 'review__course__name')
     ordering = ('-created_at',)
     raw_id_fields = ('review',)
-    readonly_fields = ('review','created_at','validated_by','validated_at',)
+    readonly_fields = ('review', 'created_at', 'validated_by', 'validated_at',)
 
     fieldsets = (
         (None, {
@@ -58,31 +58,31 @@ class ReviewRevisionAdmin(admin.ModelAdmin):
                 and obj.state == State.APPROVED
         )
 
-        with transaction.atomic():
-            if change and 'state' in form.changed_data:
-                obj.validated_by = request.user
-                obj.validated_at = timezone.now()
+        if change and 'state' in form.changed_data:
+            obj.validated_by = request.user
+            obj.validated_at = timezone.now()
 
-            super().save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
 
-            if is_approving:
-                review = obj.review
+        if not is_approving:
+            return
 
-                for field in [
-                    'grading', 'exam_difficulty', 'general_knowledge',
-                    'homework_difficulty', 'teaching_engagement',
-                    'exam_resources', 'attendance_policy',
-                    'would_take_again', 'received_score', 'review_text'
-                ]:
-                    val = getattr(obj, field)
-                    if val is None or (isinstance(val, str) and val == ''):
-                        continue
-                    setattr(review, field, val)
+        review = obj.review
+        for field in (
+            'grading', 'exam_difficulty', 'general_knowledge', 'homework_difficulty', 'teaching_engagement',
+            'exam_resources', 'attendance_policy', 'would_take_again', 'received_score', 'review_text'
+        ):
+            val = getattr(obj, field)
+            if val is None or (isinstance(val, str) and not val):
+                continue
+            setattr(review, field, val)
 
-                review.state = State.APPROVED
-                review.validated_by = request.user
-                review.validated_at = timezone.now()
-                review.save()
+        review.state = State.APPROVED
+        review.validated_by = request.user
+        review.validated_at = timezone.now()
+        review.save()
+
+        recalculate_professor_cache_fields(review.course.professor_id)
 
     def has_add_permission(self, request):
         return False
