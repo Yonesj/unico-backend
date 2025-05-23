@@ -1,4 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+
+from src.reviews.models import State
 
 
 class Course(models.Model):
@@ -6,6 +9,10 @@ class Course(models.Model):
     professor  = models.ForeignKey('Professor', on_delete=models.CASCADE, related_name='courses')
     name       = models.CharField(max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    state = models.CharField(max_length=8, choices=State.choices, default=State.PENDING, db_index=True)
+    validated_by = models.ForeignKey(get_user_model(), null=True, blank=True, on_delete=models.SET_NULL)
+    validated_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ['-created_at']
