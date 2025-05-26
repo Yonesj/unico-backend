@@ -63,7 +63,7 @@ def course_factory(professor_factory):
     def create_course(**kwargs):
         if 'professor' not in kwargs:
             kwargs['professor'] = professor_factory()
-        defaults = {'name': 'Test Course'}
+        defaults = {'name': 'Test Course' , 'state' : 'approved'}
         defaults.update(kwargs)
         return Course.objects.create(**defaults)
 
