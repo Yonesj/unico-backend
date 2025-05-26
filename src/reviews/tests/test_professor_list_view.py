@@ -72,7 +72,7 @@ def test_professor_list_search_by_name(api_client, professor_factory):
 
 @pytest.mark.django_db
 def test_professor_list_search_by_course(api_client, professor_factory, course_factory):
-    math = course_factory(name="Math")
+    math = course_factory(name="Math", state="approved")
     prof = professor_factory(first_name="Alan", last_name="Turing", courses=[math])
 
     url = reverse("list-professor")
