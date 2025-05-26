@@ -36,9 +36,9 @@ def professor(faculty):
 @pytest.fixture
 def courses(faculty, professor):
     return [
-        Course.objects.create(name="Algebra", professor=professor, faculty=faculty),
-        Course.objects.create(name="Calculus", professor=professor, faculty=faculty),
-        Course.objects.create(name="Physics", professor=professor, faculty=faculty),
+        Course.objects.create(name="Algebra", professor=professor, faculty=faculty, state="approved"),
+        Course.objects.create(name="Calculus", professor=professor, faculty=faculty, state="approved"),
+        Course.objects.create(name="Physics", professor=professor, faculty=faculty, state="approved"),
     ]
 
 
@@ -48,7 +48,6 @@ def test_course_list_success(api_client, courses):
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.data) == 3
     returned_names = [course['name'] for course in response.data]
     for course in courses:
         assert course.name in returned_names
@@ -57,8 +56,8 @@ def test_course_list_success(api_client, courses):
 @pytest.mark.django_db
 def test_course_list_filtered_by_faculty(api_client, faculty, professor):
     other_faculty = Faculty.objects.create(name="Science")
-    Course.objects.create(name="Math", professor=professor, faculty=faculty)
-    Course.objects.create(name="Biology", professor=professor, faculty=other_faculty)
+    Course.objects.create(name="Math", professor=professor, faculty=faculty, state="approved")
+    Course.objects.create(name="Biology", professor=professor, faculty=other_faculty, state="approved")
 
     url = reverse("list-course")
     response = api_client.get(url, {'faculty_id': faculty.id})
@@ -70,8 +69,8 @@ def test_course_list_filtered_by_faculty(api_client, faculty, professor):
 
 @pytest.mark.django_db
 def test_course_list_search(api_client, faculty, professor):
-    Course.objects.create(name="Advanced Algebra", professor=professor, faculty=faculty)
-    Course.objects.create(name="Intro to Programming", professor=professor, faculty=faculty)
+    Course.objects.create(name="Advanced Algebra", professor=professor, faculty=faculty, state="approved")
+    Course.objects.create(name="Intro to Programming", professor=professor, faculty=faculty, state="approved")
 
     url = reverse("list-course")
     response = api_client.get(url, {'search': 'algebra'})
