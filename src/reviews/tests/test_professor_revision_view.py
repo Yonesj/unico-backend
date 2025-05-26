@@ -6,9 +6,12 @@ from src.accounts.models import User
 from src.reviews.models import Professor, Faculty, ProfessorRevision
 from rest_framework.test import APIClient
 
+
 @pytest.fixture
 def api_client():
     return APIClient()
+
+
 @pytest.fixture
 def professor(faculty):
     return Professor.objects.create(
@@ -25,7 +28,6 @@ def professor(faculty):
         homework_difficulty_avg=3,
         average_would_take_again=4,
     )
-
 
 
 @pytest.fixture
@@ -51,7 +53,7 @@ def test_professor_revision_create_success(authenticated_client, professor, facu
     payload = {
         "professor": professor.id,
         "faculty": faculty.id,
-        "proposed_courses": ["Advanced Algebra", "Quantum Mechanics"],
+        "proposed_course_ids": [],
         "office_number": "12345",
         "telegram_account": "@john_doe",
         "email": "john.doe@example.com",
@@ -75,8 +77,8 @@ def test_professor_revision_create_duplicate_request(authenticated_client, profe
     ProfessorRevision.objects.create(
         professor=professor,
         faculty=faculty,
-        proposed_courses=["Algebra", "Physics"],
-        submitted_by=user
+        proposed_course_ids=[],
+        submitted_by=user,
     )
 
     url = reverse('edit-professor', kwargs={'pk': professor.pk})
@@ -84,7 +86,7 @@ def test_professor_revision_create_duplicate_request(authenticated_client, profe
     payload = {
         "professor": professor.id,
         "faculty": faculty.id,
-        "proposed_courses": ["Advanced Algebra", "Quantum Mechanics"],
+        "proposed_course_ids": [],
         "office_number": "12345",
         "telegram_account": "@john_doe",
         "email": "john.doe@example.com",
@@ -105,13 +107,13 @@ def test_professor_revision_create_missing_required_fields(authenticated_client,
     payload = {
         "professor": professor.id,
         "faculty": faculty.id,
-        "proposed_courses": [],
+        "proposed_course_ids": [],
     }
 
     response = authenticated_client.post(url, data=payload, format="json")
 
     assert response.status_code == status.HTTP_201_CREATED
-    assert 'proposed_courses' in response.data
+    assert 'proposed_course_ids' in response.data
     assert 'office_number' in response.data
 
 
@@ -122,7 +124,7 @@ def test_professor_revision_create_unauthorized(api_client, professor, faculty):
     payload = {
         "professor": professor.id,
         "faculty": faculty.id,
-        "proposed_courses": ["Advanced Algebra", "Quantum Mechanics"],
+        "proposed_course_ids": [],
         "office_number": "12345",
         "telegram_account": "@john_doe",
         "email": "john.doe@example.com",
@@ -143,7 +145,7 @@ def test_professor_revision_create_empty_proposed_courses(authenticated_client, 
     payload = {
         "professor": professor.id,
         "faculty": faculty.id,
-        "proposed_courses": [],
+        "proposed_course_ids": [],
         "office_number": "12345",
         "telegram_account": "@john_doe",
         "email": "john.doe@example.com",
@@ -155,4 +157,4 @@ def test_professor_revision_create_empty_proposed_courses(authenticated_client, 
 
     assert response.status_code == status.HTTP_201_CREATED
     revision = ProfessorRevision.objects.first()
-    assert revision.proposed_courses == []
+    assert revision.proposed_course_ids == []
