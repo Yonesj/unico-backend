@@ -7,7 +7,7 @@
       "professor": 1,
       "name": "مقدمه‌ای بر ادبیات فارسی",
       "created_at": "2025-04-20T09:00:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -18,7 +18,7 @@
       "professor": 2,
       "name": "مبانی الهیات",
       "created_at": "2025-04-21T10:30:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -29,7 +29,7 @@
       "professor": 3,
       "name": "اصول زمین شناسی",
       "created_at": "2025-04-22T14:15:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -40,7 +40,7 @@
       "professor": 4,
       "name": "گرامر پیشرفته انگلیسی",
       "created_at": "2025-04-23T11:45:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -51,7 +51,7 @@
       "professor": 5,
       "name": "شیمی آلی ۱",
       "created_at": "2025-04-24T08:20:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -62,7 +62,7 @@
       "professor": 6,
       "name": "تاریخ ایران باستان",
       "created_at": "2025-04-25T10:00:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -73,7 +73,7 @@
       "professor": 7,
       "name": "فلسفه اسلامی",
       "created_at": "2025-04-26T11:15:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -84,7 +84,7 @@
       "professor": 8,
       "name": "ژئوفیزیک مقدماتی",
       "created_at": "2025-04-27T13:30:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -95,7 +95,7 @@
       "professor": 9,
       "name": "روش تحقیق در زبانشناسی",
       "created_at": "2025-04-28T09:45:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -106,7 +106,7 @@
       "professor": 10,
       "name": "شیمی فیزیک ۲",
       "created_at": "2025-04-29T15:00:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -117,7 +117,7 @@
       "professor": 1,
       "name": "عروض و قافیه",
       "created_at": "2025-04-30T08:30:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -128,7 +128,7 @@
       "professor": 2,
       "name": "اخلاق کاربردی",
       "created_at": "2025-05-01T12:00:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -139,7 +139,7 @@
       "professor": 3,
       "name": "دیرینه شناسی",
       "created_at": "2025-05-02T16:20:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -150,7 +150,7 @@
       "professor": 4,
       "name": "ادبیات تطبیقی",
       "created_at": "2025-05-03T10:10:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   },
   {
@@ -161,7 +161,7 @@
       "professor": 5,
       "name": "شیمی معدنی ۱",
       "created_at": "2025-05-04T11:00:00Z",
-      "state": "Approved"
+      "state": "approved"
     }
   }
 ]
