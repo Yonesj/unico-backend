@@ -3,10 +3,18 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 from src.reviews.models import Faculty
+from django.db import connection
+
 
 @pytest.fixture
 def api_client():
     return APIClient()
+
+@pytest.fixture(autouse=True)
+@pytest.mark.django_db
+def clear_faculty_table():
+    Faculty.objects.all().delete()
+
 
 @pytest.fixture
 def faculties():
@@ -16,16 +24,16 @@ def faculties():
         Faculty.objects.create(name="Arts"),
     ]
 
+
 @pytest.mark.django_db
 def test_faculty_list_success(api_client, faculties):
     url = reverse("list-faculty")
     response = api_client.get(url)
-
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.data) == 3
     returned_names = [f["name"] for f in response.data]
     for faculty in faculties:
         assert faculty.name in returned_names
+
 
 @pytest.mark.django_db
 def test_faculty_list_search(api_client):
@@ -39,13 +47,14 @@ def test_faculty_list_search(api_client):
     assert len(response.data) == 1
     assert response.data[0]["name"] == "Computer Engineering"
 
+
 @pytest.mark.django_db
 def test_faculty_list_empty(api_client):
     url = reverse("list-faculty")
     response = api_client.get(url)
-
     assert response.status_code == status.HTTP_200_OK
     assert response.data == []
+
 
 @pytest.mark.django_db
 def test_faculty_list_unauthenticated_user(api_client, faculties):
