@@ -3,8 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 
 from src.tickets.models import Message
 from src.tickets.serializers import MessageCreateSerializer
+from src.tickets.schemas import message_create_schema
 
 
+@message_create_schema
 class MessageCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = MessageCreateSerializer

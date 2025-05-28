@@ -11,8 +11,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from src.tickets.models import Ticket, TicketStatus
 from src.tickets.serializers import TicketListSerializer, TicketCreateSerializer, TicketChatSerializer
 from src.utill.permissions import IsOwnerOrAdmin
+from src.tickets.schemas import (
+    tickets_list_create_schema_extension, ticket_chat_view_schema, ticket_stats_view_schema_extension
+)
 
 
+@tickets_list_create_schema_extension
 class TicketsListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
@@ -30,6 +34,7 @@ class TicketsListCreateView(ListCreateAPIView):
         return Ticket.objects.filter(user=self.request.user)
 
 
+@ticket_stats_view_schema_extension
 class TicketStatsView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -51,6 +56,7 @@ class TicketStatsView(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
+@ticket_chat_view_schema
 class TicketChatView(RetrieveAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     serializer_class = TicketChatSerializer
