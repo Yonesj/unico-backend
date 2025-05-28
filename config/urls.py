@@ -9,6 +9,7 @@ urlpatterns = [
     path('auth/', include('src.accounts.urls')),
     path('course-scheduler/', include('src.courses.urls')),
     path('professor-reviewer/', include('src.reviews.urls')),
+    path('tickets/', include('src.tickets.urls')),
 ]
 
 if settings.DEBUG:
