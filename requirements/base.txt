@@ -40,3 +40,7 @@ playwright==1.51.0
 pyee==12.1.1
 
 django-filter==25.1
+
+# [jdatetime dependencies]
+jalali_core==1.0.0
+jdatetime==5.2.0

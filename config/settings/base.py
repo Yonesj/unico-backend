@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'src.accounts',
     'src.courses',
     'src.reviews',
+    'src.tickets',
 ]
 
 MIDDLEWARE = [
