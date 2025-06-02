@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from src.reviews.models import Review, State
 from src.utill.helper_functions import recalculate_professor_cache_fields
+from src.notifications.models import Notification, NotificationType
 
 
 @admin.register(Review)
@@ -47,8 +48,21 @@ class ReviewAdmin(admin.ModelAdmin):
 
         super().save_model(request, obj, form, change)
 
-        if change and 'state' in form.changed_data and obj.state == State.APPROVED:
-            recalculate_professor_cache_fields(obj.course.professor_id)
+        if change and 'state' in form.changed_data and obj.state != State.PENDING:
+            verb = "رد شد."
+            type_ = NotificationType.ERROR
+
+            if obj.state == State.APPROVED:
+                verb = "مورد تایید قرار گرفت."
+                type_ = NotificationType.SUCCESS
+                recalculate_professor_cache_fields(obj.course.professor_id)
+
+            Notification.objects.create(
+                user=obj.user,
+                title="ثبت نظر",
+                body=f"نظر شما در مورد استاد {obj.course.professor.last_name} " + verb,
+                type=type_,
+            )
 
     @admin.action(description="Mark selected reviews as approved")
     def approve_reviews(self, request, queryset):

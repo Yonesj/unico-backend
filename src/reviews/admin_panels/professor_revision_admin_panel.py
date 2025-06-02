@@ -5,6 +5,7 @@ from django.db import transaction
 from django.utils.safestring import mark_safe
 
 from src.reviews.models import ProfessorRevision, State, Course
+from src.notifications.models import Notification, NotificationType
 
 
 @admin.register(ProfessorRevision)
@@ -112,6 +113,12 @@ class ProfessorRevisionAdmin(admin.ModelAdmin):
             and obj.state == State.APPROVED
         )
 
+        is_rejected = (
+            change
+            and 'state' in form.changed_data
+            and obj.state == State.REJECTED
+        )
+
         with transaction.atomic():
             if change and 'state' in form.changed_data:
                 obj.validated_by = request.user
@@ -153,6 +160,21 @@ class ProfessorRevisionAdmin(admin.ModelAdmin):
 
                 if new_courses:
                     prof.courses.add(*new_courses)
+
+                Notification.objects.create(
+                    user=obj.submitted_by,
+                    title="اصلاح اطلاعات استاد",
+                    body=f"درخواست اصلاح اطلاعات شما برای استاد {str(obj.professor)} تایید شد .",
+                    type=NotificationType.SUCCESS,
+                )
+
+            if is_rejected:
+                Notification.objects.create(
+                    user=obj.submitted_by,
+                    title="اصلاح اطلاعات استاد",
+                    body=f"درخواست اصلاح اطلاعات شما برای استاد {str(obj.professor)}رد شد .",
+                    type=NotificationType.ERROR,
+                )
 
     professor_link.short_description = "Professor"
     profile_image_preview.short_description = "Profile Image"

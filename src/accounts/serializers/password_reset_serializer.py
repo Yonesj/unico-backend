@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -5,6 +6,8 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
+
+from src.notifications.models import Notification, NotificationType
 from src.accounts.models import User
 
 
@@ -68,5 +71,14 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     def save(self, **kwargs):
         user = self.context.get('user')
         password = self.validated_data['password']
-        user.set_password(password)
-        user.save()
+
+        with transaction.atomic():
+            user.set_password(password)
+            user.save()
+
+            Notification.objects.create(
+                user=user,
+                title="تغییر رمز عبور",
+                body="رمز عبور شما با موفقت تغییر یافت .",
+                type=NotificationType.SUCCESS,
+            )
