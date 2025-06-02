@@ -3,7 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .models import Ticket, Message, TicketStatus, TicketSubject, TicketUnit
+from .models import Ticket, Message, TicketStatus
+from src.notifications.models import Notification
+
 
 class MessageInline(admin.TabularInline):
     model = Message
@@ -49,9 +51,23 @@ class TicketAdmin(admin.ModelAdmin):
     )
 
     inlines = [MessageInline] # Show messages related to this ticket
+    actions = ['mark_as_closed', 'mark_as_open', 'mark_as_answered']
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('user').prefetch_related('messages')
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+        if change and 'status' in form.changed_data and obj.status != TicketStatus.OPEN:
+            verb = "بسته شد." if obj.status == TicketStatus.CLOSED else "پاسخ داده شد."
+
+            Notification.objects.create(
+                user=obj.user,
+                title="تیکت",
+                body=f"تیکت {obj.title}" + verb
+            )
+
 
     def user_link(self, obj):
         if obj.user:
@@ -59,37 +75,23 @@ class TicketAdmin(admin.ModelAdmin):
             return format_html('<a href="{}">{}</a>', link, obj.user.get_username())
         return "-"
 
-    user_link.short_description = _('User')
-    user_link.admin_order_field = 'user__username'
-
     def user_display_info(self, obj):
         if obj.user:
             return f"{obj.user.get_username()} (ID: {obj.user.id})"
         return _("No associated user")
-
-    user_display_info.short_description = _('Ticket Creator')
 
     def created_at_formatted(self, obj):
         if obj.created_at:
             return obj.created_at.strftime("%Y-%m-%d %H:%M")
         return "-"
 
-    created_at_formatted.short_description = _('Created At')
-    created_at_formatted.admin_order_field = 'created_at'
-
     def updated_at_formatted(self, obj):
         if obj.updated_at:
             return obj.updated_at.strftime("%Y-%m-%d %H:%M")
         return "-"
 
-    updated_at_formatted.short_description = _('Updated At')
-    updated_at_formatted.admin_order_field = 'updated_at'
-
     def message_count(self, obj):
         return obj.messages.count()
-
-    message_count.short_description = _('Messages')
-    actions = ['mark_as_closed', 'mark_as_open', 'mark_as_answered']
 
     def mark_as_closed(self, request, queryset):
         updated_count = queryset.update(status=TicketStatus.CLOSED)
@@ -103,6 +105,14 @@ class TicketAdmin(admin.ModelAdmin):
         updated_count = queryset.update(status=TicketStatus.ANSWERED)
         self.message_user(request, _(f'{updated_count} tickets were marked as Answered.'))
 
+    user_link.short_description = _('User')
+    user_link.admin_order_field = 'user__username'
+    user_display_info.short_description = _('Ticket Creator')
+    created_at_formatted.short_description = _('Created At')
+    created_at_formatted.admin_order_field = 'created_at'
+    updated_at_formatted.short_description = _('Updated At')
+    updated_at_formatted.admin_order_field = 'updated_at'
+    message_count.short_description = _('Messages')
     mark_as_closed.short_description = _("Mark selected tickets as Closed")
     mark_as_answered.short_description = _("Mark selected tickets as Answered")
     mark_as_open.short_description = _("Mark selected tickets as Open")
