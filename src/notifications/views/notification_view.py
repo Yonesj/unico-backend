@@ -6,8 +6,15 @@ from rest_framework.permissions import IsAuthenticated
 from src.notifications.models import Notification
 from src.notifications.serializers import NotificationRetrieveSerializer
 from src.utill.permissions import IsOwnerOrAdmin
+from src.notifications.schemas import (
+    notification_list_schema,
+    unread_notification_count_schema,
+    mark_notification_as_read_schema,
+    mark_all_notifications_as_read_schema
+)
 
 
+@notification_list_schema
 class NotificationListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = NotificationRetrieveSerializer
@@ -20,6 +27,7 @@ class NotificationListView(ListAPIView):
         )
 
 
+@unread_notification_count_schema
 class UnreadNotificationCountView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
@@ -28,6 +36,7 @@ class UnreadNotificationCountView(GenericAPIView):
         return Response({'count': count}, status=status.HTTP_200_OK)
 
 
+@mark_all_notifications_as_read_schema
 class MarkAllNotificationsAsReadView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
@@ -39,6 +48,7 @@ class MarkAllNotificationsAsReadView(GenericAPIView):
         return Response({"updated": updated_count}, status=status.HTTP_200_OK)
 
 
+@mark_notification_as_read_schema
 class MarkAsReadView(GenericAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     queryset = Notification.objects.all()
