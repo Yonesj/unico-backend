@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'src.courses',
     'src.reviews',
     'src.tickets',
+    'src.notifications',
 ]
 
 MIDDLEWARE = [
