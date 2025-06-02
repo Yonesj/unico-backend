@@ -44,10 +44,11 @@ class MyReviewRetrieveSerializer(ReviewRetrieveSerializer):
 
 class ReviewCardSerializer(serializers.ModelSerializer):
     professor = serializers.SerializerMethodField(read_only=True)
+    course = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'review_text', 'professor']
+        fields = ['id', 'review_text', 'professor', 'course']
         read_only_fields = fields
 
     def get_professor(self, obj):
