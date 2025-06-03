@@ -1,4 +1,6 @@
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers
 
 from src.reviews.models import State, Professor, Course
@@ -8,6 +10,7 @@ from src.reviews.models.professor_revision import ProfessorRevision
 class ProfessorRevisionCreateSerializer(serializers.ModelSerializer):
     submitted_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
     state = serializers.HiddenField(default=State.PENDING)
+    website_url = serializers.CharField(required=False, allow_blank=True)
     proposed_course_ids = serializers.ListField(
         child=serializers.IntegerField(),
         allow_empty=True,
@@ -40,6 +43,21 @@ class ProfessorRevisionCreateSerializer(serializers.ModelSerializer):
             )
 
         return list(unique_ids)
+
+    def validate_website_url(self, value):
+        if not value:
+            return value
+
+        if not value.lower().startswith(("http://", "https://", "ftp://")):
+            value = "http://" + value
+
+        validator = URLValidator()
+        try:
+            validator(value)
+        except DjangoValidationError:
+            raise serializers.ValidationError(_("Enter a valid URL."))
+
+        return value
 
     def validate(self, attrs):
         try:
