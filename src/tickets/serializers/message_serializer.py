@@ -25,7 +25,7 @@ class MessageRetrieveSerializer(serializers.ModelSerializer):
 
 
 class MessageCreateSerializer(serializers.ModelSerializer):
-    user = serializers.CurrentUserDefault()
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Message
