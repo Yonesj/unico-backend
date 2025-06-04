@@ -43,7 +43,7 @@ class ProfessorReviewsListView(ListAPIView):
 
 
 @my_review_list_schema
-class MyReviewListView(ListAPIView):
+class MyReviewsByProfessorView(ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = MyReviewRetrieveSerializer
 
@@ -55,6 +55,18 @@ class MyReviewListView(ListAPIView):
                 course__professor_id=self.kwargs['pk'],
                 user=self.request.user,
             )
+        )
+
+
+class UserReviewListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = MyReviewRetrieveSerializer
+
+    def get_queryset(self):
+        return (
+            Review.all_objects
+            .with_base_eager_loading().with_stats()
+            .filter(user=self.request.user)
         )
 
 

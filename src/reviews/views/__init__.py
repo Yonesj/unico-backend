@@ -1,6 +1,6 @@
 from .student_view import StudentCreateView
 from .faculty_view import FacultyListView
-from .review_view import ProfessorReviewsListView, LatestReviewListView, MyReviewListView, ReviewCreateView, ReviewRetrieveView
+from .review_view import ProfessorReviewsListView, LatestReviewListView, MyReviewsByProfessorView, ReviewCreateView, ReviewRetrieveView, UserReviewListView
 from .professor_view import ProfessorListView, ProfessorRetrieveView, MostPopularProfessorListView, MostViewedProfessorListView, ProfessorCompareView, ProfessorCardRetrieveView
 from .review_reaction_view import MyReviewReactionListView, ReviewReactionCreateView, ReviewReactionUpdateDestroyView
 from .review_report_view import ReviewReportCreateView
