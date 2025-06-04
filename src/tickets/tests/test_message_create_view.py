@@ -60,8 +60,6 @@ class TestMessageCreateView:
         data = {"body": "This is a test message from owner"}
 
         response = api_client.post(url, data)
-        # assert response.status_code == status.HTTP_201_CREATED
-        print(response.data)
         assert response.data['body'] == data['body']
 
         assert Message.objects.filter(ticket=self.ticket_open, user=self.ticket_owner, body=data['body']).exists()
