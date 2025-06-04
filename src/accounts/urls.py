@@ -1,12 +1,13 @@
 from django.urls import path, include
 from djoser.views import UserViewSet
-from .views import ActivationCodeView, PasswordResetConfirmView, PasswordResetRequestView
+from .views import ActivationCodeView, PasswordResetConfirmView, PasswordResetRequestView, ChangePasswordView
 
 
 urlpatterns = [
     path('activate-user/', ActivationCodeView.as_view()),
     path('password-reset/', PasswordResetRequestView.as_view(), name='password-reset-request'),
     path('password-reset/confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
+    path('users/change_password/', ChangePasswordView.as_view(), name='user-change-password'),
 
     path('users/', UserViewSet.as_view(
         {
