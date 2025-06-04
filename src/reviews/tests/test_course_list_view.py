@@ -44,7 +44,7 @@ def courses(faculty, professor):
 
 @pytest.mark.django_db
 def test_course_list_success(api_client, courses):
-    url = reverse("list-course")
+    url = reverse("list-create-course")
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
@@ -59,7 +59,7 @@ def test_course_list_filtered_by_faculty(api_client, faculty, professor):
     Course.objects.create(name="Math", professor=professor, faculty=faculty, state="approved")
     Course.objects.create(name="Biology", professor=professor, faculty=other_faculty, state="approved")
 
-    url = reverse("list-course")
+    url = reverse("list-create-course")
     response = api_client.get(url, {'faculty_id': faculty.id})
 
     assert response.status_code == status.HTTP_200_OK
@@ -72,7 +72,7 @@ def test_course_list_search(api_client, faculty, professor):
     Course.objects.create(name="Advanced Algebra", professor=professor, faculty=faculty, state="approved")
     Course.objects.create(name="Intro to Programming", professor=professor, faculty=faculty, state="approved")
 
-    url = reverse("list-course")
+    url = reverse("list-create-course")
     response = api_client.get(url, {'search': 'algebra'})
 
     assert response.status_code == status.HTTP_200_OK
@@ -82,7 +82,7 @@ def test_course_list_search(api_client, faculty, professor):
 
 @pytest.mark.django_db
 def test_course_list_empty(api_client):
-    url = reverse("list-course")
+    url = reverse("list-create-course")
     response = api_client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
