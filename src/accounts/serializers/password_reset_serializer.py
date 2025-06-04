@@ -82,3 +82,30 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
                 body="رمز عبور شما با موفقت تغییر یافت .",
                 type=NotificationType.SUCCESS,
             )
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for allowing an authenticated user to change their password
+    (no old_password required).
+    """
+    new_password = serializers.CharField(write_only=True, required=True)
+    new_password_confirm = serializers.CharField(write_only=True, required=True)
+
+    def validate(self, attrs):
+        new_password = attrs.get('new_password')
+        new_password_confirm = attrs.get('new_password_confirm')
+
+        if new_password != new_password_confirm:
+            raise serializers.ValidationError(
+                {"new_password_confirm": _("The two password fields didn't match.")}
+            )
+
+        validate_password(new_password, self.context['user'])
+        return attrs
+
+    def save(self, **kwargs):
+        user = self.context['user']
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+        return user
