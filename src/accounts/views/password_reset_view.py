@@ -5,12 +5,14 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
 from src.accounts.models import User
-from src.accounts.serializers import PasswordResetRequestSerializer, PasswordResetConfirmSerializer
+from src.accounts.serializers import PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ChangePasswordSerializer
 from src.accounts.throttles import PasswordResetConfirmThrottle, PasswordResetRequestThrottle
 from src.accounts.schemas import password_reset_request_schema, password_reset_confirm_schema
 
@@ -82,3 +84,22 @@ class PasswordResetConfirmView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': _('Password has been reset successfully.')}, status=status.HTTP_200_OK)
+
+
+class ChangePasswordView(GenericAPIView):
+    """
+    Authenticated users can POST here to change their password without needing
+    to supply the old password.
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class = ChangePasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {"detail": "Password has been changed successfully."},
+            status=status.HTTP_200_OK
+        )
