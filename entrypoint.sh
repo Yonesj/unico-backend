@@ -22,7 +22,7 @@ try:
     User = get_user_model()
     if not User.objects.filter(username='admin').exists():
         print('Creating superuser...')
-        User.objects.create_superuser('admin', 'jamshidiyounes92@gmail.com', 'admin@1234')
+        User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')
     else:
         print('Superuser already exists.')
 except Exception as e:
